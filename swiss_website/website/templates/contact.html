@@ -1,0 +1,154 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+    <div class="long-container header-contact">
+        <div class="container">
+                <div style="height:285px; display:inline-block; overflow:hidden;" id="map-frame">
+                <!--<iframe src="https://www.google.com/maps/d/embed?mid=1QCa9hAh1z-tsxbFQkC2C0Fz38Ok" width="1000" height="318" frameborder="0" style="position:relative;top:-46px;border:none"></iframe> -->
+                <!--<iframe src="https://www.google.com/maps/d/u/1/embed?mid=1lej2sg1WT1dOlwERhINrrGCma4Ak6h31" width="1000" height="318" frameborder="0" style="position:relative;top:-46px;border:none"></iframe>-->
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2450.393496600217!2d21.257281015814602!3d52.10896877973849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47192af348eb9731%3A0x90192018961f0cb!2sAutazeszwajcarii.pl.+Bezpo%C5%9Bredni+import%2C+auta+na+zam%C3%B3wienie!5e0!3m2!1spl!2spl!4v1543877541120" width="1000" height="300" frameborder="0" style="position:relative;border:none" allowfullscreen></iframe>
+                </div>
+        </div>
+
+    </div>
+    
+    <div class="container big-contact">
+        
+        <div class="content">
+                <h3>
+                    {% trans2 lang 'cont-1' %}
+                    <hr/>
+                </h3>
+                <div class="contact-content">
+                    <div class="col-md-6 contact-info-right">
+                        <div class="contact-info">
+                            <h2 style="margin-top:-2px">
+                                    {% trans2 lang 'cont-2' %} <br/>
+                            <b>{% trans2 lang 'cont-3' %}</b>
+                            <hr/>
+                            <div class="info-more" style="padding-left:20px;{%if lang == 'ua'%}text-align:center{%else%}text-align:left{%endif%}">
+                                &nbsp;&nbsp;<img src="{% static "website/img/icon_mobile.png" %}" /> <b style="font-size:23px">500 224 555 Biuro</b> <i style="font-size: 16px;font-style: normal;color: #aaa;">{% trans2 lang 'cont-4' %} 8-17</i><br/>
+                                <span style="margin-left: 33px;margin-bottom: -21px;display: block;padding-top: 0;position: relative;margin-top: 2px;">biuro@autazeszwajcarii.pl</span><br/>
+                                <hr style="background-color: #ccc;border: 1px solid #ccc;color: #ccc;max-width: 70%;margin: 6px auto 0 auto;opacity: 0.35;position:relative;left:-10px;">
+				<span style="font-size:18px;margin-left:33px;letter-spacing:3px;"><!--+48 739 505 494-->607 20 70 90 Radek</span> <i style="font-size: 13px;font-style: normal;color: #aaa;">Inne zapytania 9-17</i></br>
+				<span style="margin-left: 33px;margin-bottom: -21px;display: block;padding-top: 0;position: relative;margin-top: 2px;">dobre@autazeszwajcarii.pl</span><br />
+				<hr style="background-color: #ccc;border: 1px solid #ccc;color: #ccc;max-width: 70%;margin: 6px auto 0 auto;opacity: 0.35;position:relative;left:-10px;">
+                                <span style="font-size:18px;margin-left:33px;letter-spacing:3px;">+41 78 815 66 67 (DE/MD/UA)</span></br>
+                                </br>
+                                <span style="font-size:18px;margin-left:33px;letter-spacing:3px;">Podmiot odpowiedzialny:</span></br>
+                                <span style="font-size:16px;margin-left:33px;letter-spacing:3px;">Galeria Otwock Graffiti</span></br>
+                                <span style="font-size:16px;margin-left:33px;letter-spacing:3px;">Radosław Galas</span></br>
+                                <span style="font-size:16px;margin-left:33px;letter-spacing:3px;">www.autazeszwajcarii.pl</span></br>
+                                <span style="font-size:18px;margin-left:33px;letter-spacing:3px;">NIP: 5321704084</span></br>
+                                <span style="font-size:18px;margin-left:33px;letter-spacing:3px;">REGON: 141048173</span></br>
+				</br>
+                            </div>
+                        </div>
+                        
+                        </h2>
+                    </div>
+                    <div class="col-md-6 contact-info-left">
+                        
+                        <form method="POST" action="/kontakt/">
+                            {% csrf_token %}
+                            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                         <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="{% trans2 lang 'cont-7' %}"
+                                data-errormessage-value-missing="{% trans2 lang 'cont-8' %}"
+                            required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                data-errormessage-value-missing="{% trans2 lang 'cont-9' %}"
+                                data-errormessage-type-mismatch="{% trans2 lang 'cont-10' %}"
+                            required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="{% trans2 lang 'cont-11' %}" 
+                                data-errormessage-value-missing="{% trans2 lang 'cont-12' %}"
+                            required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="text" name="content" placeholder="{% trans2 lang 'cont-13' %}" rows="3" 
+                                data-errormessage-value-missing="{% trans2 lang 'cont-14' %}"
+                            required></textarea>
+                        </div>
+                         <button type="submit" class="btn btn-default pull-right">{% trans2 lang 'cont-15' %}</button>
+                         <p class="bg-danger" style="display:none;margin-top:60px !important;">
+                                {% trans2 lang 'cont-16' %}
+
+                         </p>
+                         <p class="bg-success" style="display:none;margin-top:60px !important;">
+                                {% trans2 lang 'cont-17' %}
+
+                         </p>
+                        </form>
+                    </div>
+                    
+                </div>
+
+                <div style="clear:both"></div>
+<!--
+                <div class="contact-social" style="margin-top:75px;margin-bottom:30px">
+                    <h4 style="float: left; margin-right:15px">{% trans2 lang 'cont-18' %}</h4>
+                    <a href="https://www.facebook.com/Autazeszwajcarii" target="_blank"><img src="{% static "website/img/facebook-logo.png" %}" height="44" /></a> &nbsp; &nbsp; &nbsp;
+
+                </div>
+-->
+                <div class="container-fluid">
+                  <div class="row" style="margin-top:75px;margin-bottom:30px">
+                    <div class="col-md-4" style="">
+                      <h4 style="float: left; margin-right:15px">{% trans2 lang 'cont-18' %}</h4>
+                      <a href="https://www.facebook.com/Autazeszwajcarii" target="_blank"><img src="{% static "website/img/facebook-logo.png" %}" height="44" /></a>
+                    </div>
+                    <div class="col-md-2" style="">
+                      <a href="https://www.instagram.com/autazeszwajcarii/" target="_blank"><img src="{% static "website/img/instagram-logo.png" %}" height="44" /></a>
+                    </div>
+                    <div class="col-md-6" style="">
+                      <h4 style="float: left; margin-right:15px; margin-left:33px;padding-left:20px">Official Partner</h4>
+                      <a href="https://uniauto.ch/" target="_blank"><img src="{% static "website/img/uniautoag-logo.png" %}" height="44" /></a>
+                    </div>
+                  </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('form').submit(function(e){
+        e.preventDefault();
+
+        console.log('sent');
+
+        var form_data = $(this).serialize();
+
+        $.post('/kontakt/', form_data).done(function(data){
+            $('.bg-danger').hide();
+            $('.bg-success').hide();
+
+            if (data['success'] == true)
+            {
+                $('.bg-success').fadeIn(500);
+            }
+            else
+            {
+                $('.bg-danger').fadeIn(500);
+            }
+        })
+    });
+
+});
+</script>
+
+<!-- reCAPTCHA API -->
+<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+<script>
+    grecaptcha.ready(function() {
+      grecaptcha.execute('{{recaptcha_site_key}}', {action: "/kontakt/"}).then(function(token) {
+        document.getElementById('g-recaptcha-response').value = token;
+      });
+    });
+  </script>
+{% endblock %}

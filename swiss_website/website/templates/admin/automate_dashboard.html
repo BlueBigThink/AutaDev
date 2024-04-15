@@ -1,0 +1,140 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+#content-related {
+    display: none;
+}
+
+.dashboard #content {
+    width: 100% !important;
+    max-width: 1300px !important;
+    margin: 0 auto;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+</style>
+<h1>Panel Zarządzania Automatyzacją</h1>
+
+{% if status_success %}
+<div class="alert alert-success" role="alert">
+    {{ status_success }}
+</div>
+{% elif status_error %}
+<div class="alert alert-danger" role="alert">
+    {{ status_error }}
+</div>
+{% endif %}
+
+<div class="col-md-6">
+<h3>Status automatyzacji</h3><br/>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Status</th>
+        <th scope="col">Ilość pobranych aukcji</th>
+        <th scope="col">Ilość dostępnych aukcji</th>
+        <th scope="col">Ostatnie Uruchomienie</th>
+        <th scope="col">Zmiana Haseł</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Allianz</th>
+        <td>
+          {% if allianz.success %}
+          <i style="color:#008000" class="bi bi-check-square"></i>
+        {% else %}
+          <i style="color: #ed143d" class="bi bi-bell-fill"></i> <b style="color: #ed143d">Wykryto problem!</b>
+        {% endif %}   
+        </td>
+        <td>{{ allianz.downloaded_count }}</td>
+        <td>{{ allianz.all_count }}</td>
+        <td>{{ allianz.time }}</td>
+        <td><i>Zmiana przez Administratora</i></td>
+        </tr>
+      <tr>
+        <th scope="row">Axa</th>
+        <td>
+          {% if axa.success %}
+          <i style="color:#008000" class="bi bi-check-square"></i>
+        {% else %}
+          <i style="color: #ed143d" class="bi bi-bell-fill"></i> <b style="color: #ed143d">Wykryto problem!</b>
+        {% endif %}   
+        </td>
+        <td>{{ axa.downloaded_count }}</td>
+        <td>{{ axa.all_count }}</td>
+        <td>{{ axa.time }}</td>
+        <td><i>Brak haseł</i></td>
+        </tr>
+      <tr>
+        <th scope="row">Rest</th>
+        <td>
+          {% if rest.success %}
+          <i style="color:#008000" class="bi bi-check-square"></i>
+        {% else %}
+          <i style="color: #ed143d" class="bi bi-bell-fill"></i> <b style="color: #ed143d">Wykryto problem!</b>
+        {% endif %}        
+        </td>
+        <td>{{ rest.downloaded_count }}</td>
+        <td>{{ rest.all_count }}</td>
+        <td>{{ rest.time }}</td>
+        <td><a href="/admin/rest_api/automatedashboardmodel/automatedashboard/rest/changepass/">Zmień Hasła</a></td>
+      </tr>
+      <tr>
+        <th scope="row">SCC</th>
+        <td>
+          {% if scc.success %}
+          <i style="color:#008000" class="bi bi-check-square"></i>
+        {% else %}
+          <i style="color: #ed143d" class="bi bi-bell-fill"></i> <b style="color: #ed143d">Wykryto problem!</b>
+        {% endif %}
+        </td>
+        <td>{{ scc.downloaded_count }}</td>
+        <td>{{ scc.all_count }}</td>
+        <td>{{ scc.time }}</td>
+        <td>
+          <a href="/admin/rest_api/automatedashboardmodel/automatedashboard/scc/changepass/">Zmień Hasła</a>
+          <br/>
+          <a href="/admin/rest_api/automatedashboardmodel/automatedashboard/scc_codes/changepass/">Zmień Kody</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="col-md-6">
+
+</div>
+<div style="clear:both;width:100%;"></div>
+<br/><br/>
+<!--
+
+<form action="/admin/rest_api/languagemodel/languages/" method="POST">
+    {% csrf_token %}
+    <textarea name="file_content" style="width: 100%; min-height: 600px;">{{ file_content }}</textarea>
+    <br/>
+    <p>Po kliknięciu "Zaktualizuj" serwer zostanie zrestartowany, pamiętaj aby zachować odpowiednie formatowanie!</p>
+    <input type="submit" value="Zaktualizuj">
+</form>
+
+-->
+{% endblock %}

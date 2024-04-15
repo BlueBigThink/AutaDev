@@ -1,0 +1,260 @@
+{% load static %}
+{% load trans2 %}
+{% load is_calculator_enabled %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Oferujemy samochody sprowadzane ze Szwajcarii. Samochody używane w dobrym stanie, auta ze Szwajcarii licytacje ze szwajcarii" />
+    <meta name="keywords" content="samochody używane, sprzedaż samochodów używanych, w dobrym stanie, sprzedaż aut, auta używane, ze Szwajcarii licytacje ze szwajcarii, auta, szwajcaria, ubezpieczlnie, aukcje, licytacje, uszkodzone, tanie, okazje, okazja" />
+    <link rel="icon" href="{% static "website/img/favicon.ico" %}">
+
+{% block title %} 
+    <title>AutaZeSzwajcarii.pl - {% trans2 lang "base-00" %}</title>
+{% endblock %}
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "website/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- hacks for win8 add HERE! -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "website/css/owniv2.002.css" %}" rel="stylesheet">
+    <link href="{% static "website/css/custom.css" %}" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper notranslate">
+      <div class="container container-nav">
+        <nav class="navbar navbar-inverse navbar-static-top pull-right">
+          <div class="container container-nav menu-container">
+            <div class="navbar-header" style="margin-bottom:-50px;">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+			  <div class="navbar-brand">
+                  <a href="/"><img src="{% static "website/img/auta-ze-szwajcarii.png" %}" class="img-responsive" /></a>
+			  </div>
+			</div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav pull-right">
+                <!--
+                <li class="menu1">
+				<a href="/">{% trans2 lang "base-0" %}	<hr/></a>
+				</li>
+                -->
+                <li class="menu2"><a href="/firma">{% trans2 lang "base-1" %}	<hr/></a></li>
+    
+                <li class="menu6 smallscreen-menu-dropdown"><a href="/zasady">{% trans2 lang 'ent-5' %}<hr/></a></li>
+                <li role="presentation" class="menu6 dropdown fullscreen-menu-dropdown">
+                  <!--<a href="/konto"><span class="glyphicon glyphicon-user"></span> Konto</a>-->
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="/zasady" role="button" aria-haspopup="true" aria-expanded="false">
+                    {% trans2 lang 'ent-5' %} <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" style="text-align:center">
+                    <li><a href="/zasady">{% trans2 lang 'ent-4' %}</a></li>
+                    <li><a href="/faq">{% trans2 lang 'faq-1' %}</a></li>
+                  </ul>
+                </li>
+
+                <li class="menu3"><a href="/aukcje">{% trans2 lang "base-2" %} <hr/></a></li>
+                <li class="menu6"><a href="/ogloszenia">{% trans2 lang "base-3" %} <hr/></a></li>
+                <!--<li class="menu4"><a href="http://www.transportzeszwajcarii.pl/kalkulator" target="blank">{% trans2 lang "base-4" %}<hr/></a></li>-->
+		{% if user.is_authenticated and user|is_calculator_enabled or user.is_superuser %}
+			<li class="menu6"><a href="/kalkulator">{% trans2 lang "base-5" %} <hr/></a></li>
+		{% endif %}
+                <li class="menu5"><a href="/kontakt">{% trans2 lang "base-6" %} <hr/></a></li>
+
+                {% if user.is_authenticated %}
+                <li class="menu6 smallscreen-menu-dropdown"><a href="/konto/profil">{% trans2 lang "base-7" %}<hr/></a></li>
+                <li role="presentation" class="menu6 dropdown fullscreen-menu-dropdown">
+                  <!--<a href="/konto"><span class="glyphicon glyphicon-user"></span> Konto</a>-->
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="/konto" role="button" aria-haspopup="true" aria-expanded="false">
+        <span class="glyphicon glyphicon-user"></span> {% trans2 lang "base-7" %}<span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" style="text-align:center">
+                    <li><a href="/konto/profil">{% trans2 lang "base-8" %}</a></li>
+                    <li><a href="/konto/licytacje">{% trans2 lang "base-9" %}</a></li>
+                    <li><a href="/konto/obserwowane">{% trans2 lang "base-10" %}</a></li>
+                    <li><a href="/konto/wygrane">{% trans2 lang "base-11" %}</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/konto/nowe_haslo">{% trans2 lang "base-12" %}</a></li>
+                    <li><a href="/wyloguj">{% trans2 lang "base-13" %}</a></li>
+                  </ul>
+                </li>
+                <li class="menu6 menu_logout_only_phone"><a href="/wyloguj">{% trans2 lang "base-13" %}</a></li>
+                {% else %}
+                <li class="menu6"><a href="/konto"><span class="glyphicon glyphicon-user"></span> {% trans2 lang "base-14" %}</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="page-content-wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+	
+	<footer id="footer">
+		<div class="container">
+                        <div style="float:left;margin-top:15px;">
+			    <a style="color:#fff;" target="_blank" href="/static/website/regulamin.pdf">Regulamin serwisu</a><br/>
+			    <a style="color:#fff;" target="_blank" href="/static/website/polityka-prywatnosci.pdf">Polityka prywatności</a>
+                        </div>
+
+			<div class="footer-info pull-right">
+			Copyright &copy; {% trans2 lang "base-15" %}
+			</div>
+		</div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="{% static "website/js/bootstrap.min.js" %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+        <script>
+        
+    var cookie_accepted = true;
+    window.addEventListener("load", function(){
+      window.setTimeout(function(){
+        if (cookie_accepted) {
+          window.cookieconsent.initialise({
+            "cookie": {"name": "faq-seen"},
+            "palette": {
+              "popup": {
+                "background": "#000"
+              },
+              "button": {
+                "background": "#b10303",
+                "color": "#fff"
+              }
+            },
+            "content": {
+              "message": "Szanowni Państwo,<br/><br/>Jesteśmy dla Państwa pod numerem<br/>telefonu: AUKCJE <a href='tel:+48500224555' style='color:#00a8f3'>500 224 555</a><br/>email: <a href='mailto:biuro@autazeszwajcarii.pl' style='color:#00a8f3'>biuro@autazeszwajcarii.pl</a><br/><br/>Email, telefon właściciela:<br/><a href='mailto:dobre@autazeszwajcarii.pl' style='color:#00a8f3'>dobre@autazeszwajcarii.pl</a><br/>tel. <a href='tel:+48607207090' style='color:#00a8f3'>607 20 70 90</a><br/><br/>Z szacunkiem,<br/>Radosław Galas - właściciel<br/><br/>Masz pytania jak działamy i jak licytować, zajrzyj do sekcji<br/><a href='/faq' style='color:#ac0303;text-decoration:underline'>Najczęściej Zadawane Pytania</a>.</br>Informacje \"O Nas\" znajdziesz w zakładce<br/><a href='/firma' style='color:#ac0303;text-decoration:underline'>O Firmie</a>.",
+              "link": "",
+              "dismiss": "Rozumiem, zamknij informację",
+              "href": "https://wszystkoociasteczkach.pl/"
+            }
+          })
+        }
+      }, 800);
+
+    window.cookieconsent.initialise({
+      "cookie": {"name": "cookie-seen"},
+      "palette": {
+        "popup": {
+          "background": "#000"
+        },
+        "button": {
+          "background": "#b10303",
+          "color": "#fff"
+        }
+      },
+      "content": {
+        "message": "Ta strona korzysta z Cookies, aby zapewnić Ci jak najlepsze funkcjonalności naszego serwisu.",
+        "link": "Przeczytaj więcej",
+        "dismiss": "Akceptuję",
+        "href": "https://wszystkoociasteczkach.pl/"
+      },
+      "onPopupOpen": function() {
+        cookie_accepted = false;
+      },
+      "onPopupClose": function(){
+        window.cookieconsent.initialise({
+          "cookie": {"name": "faq-seen"},
+          "palette": {
+            "popup": {
+              "background": "#000"
+            },
+            "button": {
+              "background": "#b10303",
+              "color": "#fff"
+            }
+          },
+          "content": {
+            "message": "Szanowni Państwo,<br/><br/>Jesteśmy dla Państwa pod numerem<br/>telefonu: AUKCJE <a href='tel:+48500224555' style='color:#00a8f3'>500 224 555</a><br/>email: <a href='mailto:biuro@autazeszwajcarii.pl' style='color:#00a8f3'>biuro@autazeszwajcarii.pl</a><br/><br/>Email, telefon właściciela:<br/><a href='mailto:dobre@autazeszwajcarii.pl' style='color:#00a8f3'>dobre@autazeszwajcarii.pl</a><br/>tel. <a href='tel:+48607207090' style='color:#00a8f3'>607 20 70 90</a><br/><br/>Z szacunkiem,<br/>Radosław Galas - właściciel<br/><br/>Masz pytania jak działamy i jak licytować, zajrzyj do sekcji<br/><a href='/faq' style='color:#ac0303;text-decoration:underline'>Najczęściej Zadawane Pytania</a>.</br>Informacje \"O Nas\" znajdziesz w zakładce<br/><a href='/firma' style='color:#ac0303;text-decoration:underline'>O Firmie</a>.",
+            "link": "",
+            "dismiss": "Rozumiem, zamknij informację",
+            "href": "https://wszystkoociasteczkach.pl/"
+          }
+        })
+      }
+    })});
+
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var lang = 'pl';
+        var value = "; " + document.cookie;
+        var parts = value.split("lang=");
+        if (parts.length == 2) 
+            lang = parts.pop().split(";").shift();
+
+	if (lang == 'ru'){
+		$('.menu3').css('marginRight', '20px');
+	}
+      });
+    </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8PDX7PKMTP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8PDX7PKMTP');
+</script>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<!--
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-99976750-2"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+          gtag('config', 'UA-99976750-2', { 'optimize_id': 'GTM-PSTN7PP'});
+	</script>
+-->
+	<!-- Google Analytics -->
+<!--
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-99976750-2', 'auto');
+                ga('require', 'GTM-PSTN7PP');
+		ga('send', 'pageview');
+	</script>
+-->
+	<!-- End Google Analytics -->
+    {% block scripts %}
+    {% endblock %}
+  </body>
+</html>

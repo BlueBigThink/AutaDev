@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block content %}
+<div class="container business register-container" style="min-height:400px">
+    <h3 style="margin:40px 0 30px 0">
+        Rejestracja nowego użytkownika
+        <hr/>
+    </h3>
+
+    <p>
+{% trans2 lang 'new-reg-0' %}
+    </p>
+
+    <p class="bg-warning" style="padding-top:15px;display:none;margin-top:30px;margin-bottom:50px;font-weight: bold;"></p>
+    <p class="bg-success" style="padding-top:15px;display:none;margin-top:30px;margin-bottom:350px;font-weight: bold;"></p>
+
+    <form class="form-horizontal" style="max-width:500px; margin: 0 auto;" method="post">
+        {% csrf_token %}
+        {{ form.errors }}
+        <div class="col-md-12 col-sm-12" >
+            <div class="form-group">
+                <label for="id_first_name">{% trans2 lang 'new-reg-1' %}:</label><input id="id_first_name" maxlength="31" name="first_name" type="text" required>
+            </div>
+            <div class="form-group">
+                <label for="id_second_name">{% trans2 lang 'new-reg-2' %}:</label><input id="id_second_name" maxlength="31" name="second_name" type="text">
+            </div>
+            <div class="form-group">
+                <label for="id_last_name">{% trans2 lang 'new-reg-3' %}:</label><input id="id_last_name" maxlength="31" name="last_name" type="text" required>
+            </div>
+            <div class="form-group">
+                <label for="id_email">{% trans2 lang 'new-reg-4' %}:</label><input id="id_email" maxlength="121" name="email" type="email" required>
+            </div>
+            <div class="form-group">
+                <label for="id_password">{% trans2 lang 'new-reg-5' %}:</label><input id="id_password" maxlength="31" name="password" required="" type="password" required>
+            </div>
+            <div class="form-group">
+                <label for="id_password2">{% trans2 lang 'new-reg-6' %}:</label><input id="id_password2" maxlength="31" name="password2" required="" type="password" required>
+            </div>
+            <div class="form-group">
+                <label for="id_phone">{% trans2 lang 'new-reg-7' %}:</label><input id="id_phone" maxlength="31" name="phone_number" type="text" required>
+            </div>
+            <div class="form-group">
+                <label for="id_country">{% trans2 lang 'new-reg-8' %}:</label><input id="id_country" maxlength="63" name="country" type="text">
+            </div>
+            <div class="form-group">
+                <label for="id_city_name">{% trans2 lang 'new-reg-9' %}:</label><input id="id_city_name" maxlength="63" name="city_name" type="text">
+            </div>
+            <div class="form-group">
+                <label for="id_postal_code">{% trans2 lang 'new-reg-10' %}:</label><input id="id_postal_code" maxlength="31" name="postal_code" placeholder="00-000" type="text">
+            </div>
+            <div class="form-group">
+                <label for="id_street_name">{% trans2 lang 'new-reg-11' %}:</label><input id="id_street_name" maxlength="127" name="street_name"  type="text">
+            </div>
+            <div class="form-group">
+                <label for="id_home_number">{% trans2 lang 'new-reg-12' %}:</label><input id="id_home_number" maxlength="63" name="home_number" type="text">
+            </div>
+            <div class="form-group">
+                <label for="id_promocode">{% trans2 lang 'new-reg-13' %}:</label><input id="id_promocode" name="promocode" rows="4" style="float: right;width: 240px;"/>
+            </div>
+            <div class="form-group">
+                <label for="id_note">{% trans2 lang 'new-reg-14' %}:</label>
+                <select name="lang" style="float: right;width: 240px;">
+                        <option value="pl">{% trans2 lang 'new-reg-15' %}</option>
+                        <option value="en">{% trans2 lang 'new-reg-16' %}</option>
+                        <option value="de">{% trans2 lang 'new-reg-17' %}</option>
+                        <option value="ru">{% trans2 lang 'new-reg-18' %}</option>
+                </select> 
+            </div>
+                <div class="form-group" style="margin-top:20px;padding-left:0;">
+                    <input type="checkbox" required="" name="terms" style="float:none;width:auto;position:relative;top:3px;"> &nbsp;<label for="terms">Akceptuję <a href="/static/website/regulamin.pdf" target="_blank">warunki korzystania z serwisu</a> i <a href="/static/website/polityka-prywatnosci.pdf" target="_blank">politykę prywatności danych</a></label>
+                </div>
+        </div>
+        <!--
+        <div class="col-md-5 col-sm-12" style="float:right">
+            <h4 style="margin:0 0 20px 0;">
+                Firma<br>
+                <span style="font-size:13px;color:#CCC;margin-left:0;"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; 
+                    W przypadku konta zakładanego na firmę</span>
+            </h4>
+            <div class="form-group">
+                <label for="id_business_name">Nazwa firmy:</label><input id="id_business_name" maxlength="63" name="business_name" type="text">
+            </div>
+            <div class="form-group">
+                <label for="id_nip_code">NIP:</label><input id="id_nip_code" maxlength="63" name="nip_code" type="text">
+            </div>
+        </div>
+        -->
+        <div style="clear:both"></div>
+        <div class="col-md-5 col-sm-12">
+            <div class="form-group" style="float:right;margin-top:15px;margin-bottom:40px;">
+                    <button type="submit" class="btn btn-default red">
+                        {% trans2 lang 'new-reg-19' %}
+                    </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+jQuery(document).ready(function ($) {
+    $('form').submit(function(event){
+        event.preventDefault();
+        var data = $(this).serialize();
+
+        $.post("", data).done(function(data){
+            if (data['success'] == true)
+            {
+                $('.bg-success').text('{% trans2 lang 'new-reg-20' %}')
+                $('.bg-success').fadeIn();
+                $('.bg-warning').hide();
+                $('form').hide();
+                window.scrollTo(0, 0);
+            }
+            else {
+                $('.bg-warning').text(data['error_list'][0]);
+                $('.bg-warning').fadeIn();
+                $('.bg-success').hide();
+                window.scrollTo(0, 0);
+            }
+
+        });
+    });
+});
+
+</script>
+{% endblock %}

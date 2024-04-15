@@ -1,0 +1,20 @@
+{% extends "admin/web_app/index.html" %}
+{% load i18n %}
+
+{% block title %} {{ title }} | {% trans 'AdminPanel AutaZeSzwajcarii.pl' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'AdminPanel AutaZeSzwajcarii.pl' %}</h1>
+{% endblock %}
+
+{% block sidebar %}
+    {{block.super}}
+    <div>
+        {%if user.username == 'RadekTatiana' %}<br><br>{% endif %}
+        <h1>Przydatne linki</h1>
+        <a href="/zarejestruj/">Dodaj nowego użytkownika</a><br/><br/>
+        <a href="/panel/potwierdzenia/">Potwierdzenia</a><br/>
+    </div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

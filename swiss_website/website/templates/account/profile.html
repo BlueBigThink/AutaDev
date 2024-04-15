@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block content %}
+{% include 'account/nav.html' %}
+<div class="container  big-contact my-profile">
+	<h3 class="my-profile-header">
+			{% trans2 lang 'aa-10' %}
+		<hr>
+	</h3>
+	<div class="my-profile-inner">
+		<div class="col-md-6">
+			<h3>{% trans2 lang 'aa-22' %}<hr></h3>
+			<span>{% trans2 lang 'aa-23' %}:</span> <b>{{ user2.first_name|default:"N/A"}}</b><br/>
+			<span>{% trans2 lang 'aa-24' %}:</span> <b>{{ user2.phone_number|default:"N/A" }}</b><br/>
+			<span>{% trans2 lang 'aa-25' %}:</span> <b>{{ user2.user.email|default:"N/A" }}</b><br/>
+
+			<h3>{% trans2 lang 'aa-32' %}<hr></h3>
+			{% if type == 'Private' %}
+				<span>{% trans2 lang 'aa-26' %}:</span> <b>N/A</b><br/>
+				<span>{% trans2 lang 'aa-27' %}:</span> <b>N/A</b>
+			{% endif %}
+			{% if type == 'Business' %}
+				<span>{% trans2 lang 'aa-26' %}:</span> <b>{{ user2.business_name|default:"N/A" }}</b><br/>
+				<span>{% trans2 lang 'aa-27' %}:</span> <b>{{ user2.nip_code|default:"N/A" }}</b>
+			{% endif %}
+
+		</div>
+		<div class="col-md-6">
+			<h3>{% trans2 lang 'aa-28' %}<hr></h3>
+			<span>{% trans2 lang 'aa-29' %}:</span>
+			{% if user2.accepted %}
+				<b style="color:green">{% trans2 lang 'aa-30' %}</b>
+			{% else %}
+				<b style="color:red">{% trans2 lang 'aa-31' %}</b>
+			{% endif %}
+			<br/>
+
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block scripts %}
+	<script src="{% static "website/js/sticky_footer.js" %}"></script>
+{% endblock %}

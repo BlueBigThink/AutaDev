@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+<div class="container business" style="font-family:'Open Sans', sans-serif;min-height:0">
+		<div class="content" style="margin: 20px auto 0 auto; text-align: justify;min-height:0;">
+				<h3 style="margin:30px 0 0 0;text-align:left;">
+					<b>{% trans2 lang 'rules-0' %}</b>
+					<hr style="max-width:2000px"/>
+				</h3>
+				<br/><br/>
+				{% autoescape off %}
+				<h4 style="font-size:16px;"><span class="">{% trans2 lang 'rules-1' %} - <a class="text-important" href="/zarejestruj">{% trans2 lang 'rules-8' %}</a></span></h4>
+				<h4 style="font-size:16px;"><span class="">{% trans2 lang 'rules-2' %}</span></h4>
+				<h4 style="font-size:16px;"><span class="">{% trans2 lang 'rules-3' %}</span></h4>
+				<h4 style="font-size:16px;"><span class="">{% trans2 lang 'rules-4' %}</span></h4>
+				<h4 style="font-size:16px;"><span class="">{% trans2 lang 'rules-6' %}</span></h4>
+				<h4 style="font-size:16px;"><span class="">{% trans2 lang 'rules-7' %}</span></h4>
+				{% endautoescape %}
+
+				<p style="font-size:16px;">
+					{% trans2 lang 'rules-28' %} <a class="text-important" href="/faq">{% trans2 lang 'rules-29' %}</a> {% trans2 lang 'rules-30' %} <a class="text-important" href="/kontakt">{% trans2 lang 'rules-31' %}</a>.
+				</p>
+				
+				<h3 style="margin:70px 0 0 0;text-align:left;">
+					<b>{% trans2 lang 'rules-17' %}</b>
+					<hr style="max-width:2000px"/>
+				</h3>
+				<br/><br/>
+				<h4><span class="">{% trans2 lang 'rules-18' %} <a class="text-important" style="font-weight: 400;" href="https://autoscout24.ch">autoscout24.ch</a> , <a class="text-important" style="font-weight: 400;" href="https://tutti.ch">tutti.ch</a>, <a class="text-important" style="font-weight: 400;" href="https://ricardo.ch">ricardo.ch</a></span></h4>
+				<h4><span class="">{% trans2 lang 'rules-19' %}</span></h4>
+
+				<p style="font-family:'Open Sans';margin-top:10px; font-size:15px;line-height:27px">
+						{% trans2 lang 'rules-20' %}	
+				</p>
+				<h3 style="margin:70px 0 0 0;text-align:left;">
+					<b>{% trans2 lang 'rules-21' %}</b>
+					<hr style="max-width:2000px"/>
+				</h3>
+				<p style="font-family:'Open Sans';margin-top:10px; font-size:15px;line-height:27px">
+						{% trans2 lang 'rules-22' %}<br/><br/>
+					- {% trans2 lang 'rules-23' %}<br/>
+					- {% trans2 lang 'rules-24' %}<br/>
+					- {% trans2 lang 'rules-25' %}<br/>
+					- {% trans2 lang 'rules-26' %}<br/>
+					- {% trans2 lang 'rules-27' %}<br/>
+				</p>
+
+				<br/><br/><br/>
+		</div>
+</div>
+<div class="container business" style="font-family:'Open Sans', sans-serif;min-height:0">
+	<div class="content" style="margin: 20px auto 0 auto; text-align: justify;min-height:0;">
+
+	</div>
+</div>
+{% endblock %}
+

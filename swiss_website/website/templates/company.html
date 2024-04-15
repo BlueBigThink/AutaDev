@@ -1,0 +1,36 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+	
+	<div class="container business">
+		<div class="header-business">
+
+		</div>
+		<div class="content" style="max-width:800px; margin: 20px auto 0 auto; text-align: justify">
+				<h3>
+					{% trans2 lang 'comp-0' %}
+					<hr/>
+				</h3>
+				<p>
+{% trans2 lang 'comp-1' %} <span class="text-important">{% trans2 lang 'comp-2' %}</span> {% trans2 lang 'comp-3' %}
+<br/><br/>
+{% trans2 lang 'comp-4' %}
+<br/><br/><br/>
+{% trans2 lang 'comp-5' %}
+
+{% trans2 lang 'comp-6' %}
+<br/><br/><br/>
+
+<span class="text-important">{% trans2 lang 'comp-8' %}</span> {% trans2 lang 'comp-9' %}<br/><br/><br/>
+
+{% trans2 lang 'comp-11' %}
+<br/><br/>
+</p>
+
+				<p class="red-paragraph" style="margin-top:0">
+					{% trans2 lang 'comp-13' %}				
+				</p>
+		</div>
+	</div>
+{% endblock %}

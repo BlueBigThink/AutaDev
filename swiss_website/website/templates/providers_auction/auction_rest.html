@@ -1,0 +1,43 @@
+{% load trans2 %}
+
+<div class="container business">
+  <div class="auction-details-more-info">
+    <h3 style="margin-bottom:40px;margin-top:50px;">
+        {% trans2 lang 'a-axa-0' %}
+        <hr/>
+    </h3>
+    <table class="table table-bordered table-striped" style="max-width: 700px;margin:0 auto;">
+      <col width="40%" />
+      <col width="60%" />
+      {% for key, value in car.data.items %}
+          {% if key != "Schadenbeschrieb" and key != "Information"  and key != "Chassis-Nr." and key != "subprovider" and key != "Typenschein" %}
+          <tr>
+              <td>{{ key }}</td>
+              <td>
+	      {% if value.0|length > 1 %}
+	        {{ value|join:", " }}
+	      {%else%}
+	        {{ value }}
+	      {%endif%}
+          </td>
+          </tr>
+          {%elif key == "Chassis-Nr." and user.is_authenticated %}
+          <tr>
+	     <td>{{ key }} </td>
+	     <td>{{ value }} </td>
+          </tr>
+          {% elif key == "Information" %}
+          <tr>
+              <td>{{ key }}</td>
+              <td>{{ value|safe }}</td>
+          </tr> 
+          {% elif key == "Typenschein" %}
+          <tr>
+              <td><b>{{ key }}</b></td>
+              <td><b>{{ value|safe }}</b></td>
+          </tr>
+          {% endif %}
+      {% endfor %}
+    </table>
+    {{ car.data.Schadenbeschrieb|safe }}
+  </div>

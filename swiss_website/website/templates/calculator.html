@@ -1,0 +1,365 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+
+<div class="container business" style="font-family:'Open Sans', sans-serif;">
+		<div class="content" style="max-width:800px; margin: 20px auto 0 auto; text-align: justify">
+				<h3 style="margin:30px 0 50px 0;">
+					{% trans2 lang 'calc-0' %}	
+					<hr/>
+				</h3>
+
+
+<div id="contact-form" style="margin:20px 0 0 30px">
+<div class="row car motorcycle scooter">
+   <label class="required">
+	{% trans2 lang 'calc-1' %}
+   <span class="required">*</span>
+   </label><br/>
+   <input type="text" style="margin-bottom:5px" value="" id="costs_auction" pattern="\d*" >
+   <br/>
+   <span style="display:none;color:#888" class="costs_after_vat"></span>
+</div>
+<style>
+   .row {
+   border:1px solid #DDD;
+   border-radius:3px;
+   padding:10px 0 10px 15px;
+   max-width:700px;
+   margin:0 0 10px 0;
+   font-family:'Open Sans', sans-serif;
+   }
+   .row label {
+   color: #5e5e5e;
+   }
+   .row label:first-child {
+   margin-bottom:10px;
+   color: #4A4A4A;
+   }
+   #contact-form ul {
+   list-style-type:none;
+   }
+</style>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+   	// fabric, vat, transport
+
+	var chf_rate = 4.11;
+   	var eur_rate = 4.40;
+
+	$.get('/api/v1/currencies', function(data) {
+		chf_rate = data['chf'];
+		eur_rate = data['eur'];
+		$('.admin_currency_chf').text(chf_rate);
+	});
+
+   	var auction_price = 0;
+   
+   	var car_prices = [0, 0, 0];
+   	var motor_prices = [0, 0, 0];
+   	var scooter_prices = [0, 0, 0];
+   
+   	var vehicle_type = 0;
+        $("#costs_auction").val("");
+	$("input[name=vehicle]")[0].checked = true;
+	$("input[name=car_vehicle_fabric]")[0].checked = true;
+	$("input[name=vat]")[0].checked = true;
+	$("input[name=car_transport]")[0].checked = true;
+
+   	$("input[name=vehicle]").on("change", function(){
+   		var cls = $(this).attr("data-class");
+   		$('.car, .motorcycle, .scooter').hide();
+   		$('.'+cls).show();
+   
+   		if (vehicle_type == 0)
+   			show_costs(auction_price, car_prices);
+   		else if (vehicle_type == 1)
+   			show_costs(auction_price, motor_prices);
+   		else if (vehicle_type == 2)
+   			show_costs(auction_price, scooter_prices);
+   	});
+   
+   	$("#costs_auction").keydown(function (e) {
+   		if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+   				(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || (e.keyCode >= 35 && e.keyCode <= 40)) {
+   			return;
+   		}
+   		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+   			e.preventDefault();
+   		}
+   	});
+   
+   	$("#costs_auction").keyup(function (e) {
+   		if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+   				(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || (e.keyCode >= 35 && e.keyCode <= 40)) {
+   
+   			auction_price = parseInt($(this).val());
+   			auction_price = auction_price * 1.081;
+   			console.log(auction_price);
+   
+   			if (vehicle_type == 0)
+   				show_costs(auction_price, car_prices);
+   			else if (vehicle_type == 1)
+   				show_costs(auction_price, motor_prices);
+   			else if (vehicle_type == 2)
+   				show_costs(auction_price, scooter_prices);
+   			
+   			return;
+   		}
+   		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+   			e.preventDefault();
+   		}
+   		else {
+   			auction_price = parseInt($(this).val());
+   			auction_price = auction_price * 1.081;
+   			console.log(auction_price);
+   
+   			if (vehicle_type == 0)
+   				show_costs(auction_price, car_prices);
+   			else if (vehicle_type == 1)
+   				show_costs(auction_price, motor_prices);
+   			else if (vehicle_type == 2)
+   				show_costs(auction_price, scooter_prices);
+   		}
+   	});
+	 
+	   $("#costs_auction").on("change", function(){
+   			auction_price = parseInt($(this).val());
+   			auction_price = auction_price * 1.081;
+   			console.log(auction_price);
+   
+   			if (vehicle_type == 0)
+   				show_costs(auction_price, car_prices);
+   			else if (vehicle_type == 1)
+   				show_costs(auction_price, motor_prices);
+   			else if (vehicle_type == 2)
+   				show_costs(auction_price, scooter_prices);
+	   });
+   
+   	$("input[name=vehicle]").on("change", function(){
+   		var cls = $(this).attr("data-class");
+   		$('.car, .motorcycle, .scooter').hide();
+   		$('.'+cls).show();
+   
+   		if (cls == "car")
+   			vehicle_type = 0;
+   		else if (cls == "motorcycle")
+   			vehicle_type = 1;
+   		else if (cls == "scooter")
+   			vehicle_type = 2;
+   
+   		if (vehicle_type == 0)
+   			show_costs(auction_price, car_prices);
+   		else if (vehicle_type == 1)
+   			show_costs(auction_price, motor_prices);
+   		else if (vehicle_type == 2)
+   			show_costs(auction_price, scooter_prices);
+   	});
+   
+   	$("input[name=car_vehicle_fabric]").on("change", function(){
+   		car_prices[0] = parseInt($(this).attr('value'));
+   		show_costs(auction_price, car_prices);
+   	});
+   
+   	$("input[name=scooter_vehicle_fabric]").on("change", function(){
+   		scooter_prices[0] = parseInt($(this).attr('value'));
+   		show_costs(auction_price, scooter_prices);
+   	});
+   
+   	$("input[name=motor_vehicle_fabric]").on("change", function(){
+   		motor_prices[0] = parseInt($(this).attr('value'));
+   		show_costs(auction_price, motor_prices);
+   	});
+   
+   	$("input[name=vat]").on("change", function(){
+   		car_prices[1] = parseInt($(this).attr('value'));
+   		motor_prices[1] = parseInt($(this).attr('value'));
+   		scooter_prices[1] = parseInt($(this).attr('value'));	
+   
+   		if (vehicle_type == 0)
+   			show_costs(auction_price, car_prices);
+   		else if (vehicle_type == 1)
+   			show_costs(auction_price, motor_prices);
+   		else if (vehicle_type == 2)
+   			show_costs(auction_price, scooter_prices);
+   	});
+   
+   	$("input[name=car_transport]").on("change", function(){
+   		car_prices[2] = parseInt($(this).attr('value'));	
+   		show_costs(auction_price, car_prices);
+   	});
+   
+   	$("input[name=motor_transport]").on("change", function(){
+   		motor_prices[2] = parseInt($(this).attr('value'));
+   		show_costs(auction_price, motor_prices);
+   	});
+   
+   	$("input[name=scooter_transport]").on("change", function(){
+   		scooter_prices[2] = parseInt($(this).attr('value'));
+   		show_costs(auction_price, scooter_prices);
+   	});
+   
+   	function show_costs(_auction_cost, _choosed_prices){
+   		if(isNaN(_auction_cost))
+   			_auction_cost = 0;
+   
+                var netto_cost = _auction_cost * 1081 / 1000;
+   		//var sped = 100 * eur_rate;
+   		var sped = 449;
+   		var prov = Math.max(_auction_cost*0.1, 200);
+   		var transport = _choosed_prices[1]/100*(_auction_cost+100) + _choosed_prices[0]/100*(_auction_cost+100);
+   		transport = transport * chf_rate + _choosed_prices[2] + sped;
+
+		var all_costs = prov * chf_rate + transport + _auction_cost * chf_rate;
+		if (_auction_cost < 10000){
+			all_costs = all_costs + (10000 - _auction_cost) * 0.02;
+		}
+   
+   		$('.costs_after_vat').html("{% trans2 lang 'calc-2' %}: " + Math.ceil(parseInt(_auction_cost)) + " CHF");
+   
+   		$('.costs_after_vat').show();
+   		$('.transport_costs').html(Math.ceil(transport));
+   		$('.work_costs').html(Math.ceil(prov));
+   		$('.all_costs').html(Math.ceil(all_costs));
+   	}
+   });
+   
+</script>
+<div class="row car motorcycle scooter">
+   <label class="required">
+   {% trans2 lang 'calc-3' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input data-class="car" value="Samochód" name="vehicle" type="radio" checked="checked"> &nbsp;{% trans2 lang 'calc-4' %}</label>
+   <br/>
+   <label><input data-class="motorcycle" value="Motocykl" name="vehicle" type="radio"> &nbsp;{% trans2 lang 'calc-5' %}</label>
+   <br/>
+   <label><input data-class="scooter" value="Skuter" name="vehicle" type="radio"> &nbsp;{% trans2 lang 'calc-6' %}</label>
+</div>
+<div class="row car">
+   <label class="required">
+		{% trans2 lang 'calc-4' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input value="0" name="car_vehicle_fabric" type="radio"> &nbsp;{% trans2 lang 'calc-7' %}</label>
+   <br/>
+   <label><input value="11" name="car_vehicle_fabric" type="radio"> &nbsp;{% trans2 lang 'calc-8' %}</label>
+</div>
+<div class="row motorcycle" style="display:none">
+   <label class="required">
+		{% trans2 lang 'calc-9' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input value="0" name="motor_vehicle_fabric" type="radio"> &nbsp;{% trans2 lang 'calc-7' %}</label>
+   <br/>
+   <label><input value="8" name="motor_vehicle_fabric" type="radio"> &nbsp;{% trans2 lang 'calc-10' %}</label>
+   <!--
+   <br/>
+   <label><input value="6" name="motor_vehicle_fabric" type="radio"> &nbsp;Wyprodukowany poza UE powyżej 400cm3 (+6%)</label>
+   -->
+</div>
+<div class="row scooter" style="display:none">
+   <label class="required">
+		{% trans2 lang 'calc-6' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input value="0" name="scooter_vehicle_fabric" type="radio"> &nbsp;{% trans2 lang 'calc-7' %}</label>
+   <br/>
+   <label><input value="8" name="scooter_vehicle_fabric" type="radio"> &nbsp;{% trans2 lang 'calc-10' %}</label>
+   <br/>
+   <!-- 
+   <label><input value="6" name="scooter_vehicle_fabric" type="radio"> &nbsp;Wyprodukowany poza UE powyżej 400cm3 (+6%)</label>
+   -->
+</div>
+<div class="row car motorcycle scooter">
+   <label class="required">
+		{% trans2 lang 'calc-11' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input value="0" name="vat" type="radio"> &nbsp;{% trans2 lang 'calc-12' %}</label>
+   <br/>
+   <label><input value="22" name="vat" type="radio"> &nbsp;{% trans2 lang 'calc-13' %}</label>
+</div>
+<div class="row car">
+   <label class="required">
+		{% trans2 lang 'calc-14' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input value="0" name="car_transport" type="radio"> &nbsp;{% trans2 lang 'calc-15' %}</label>
+   <br/>
+   <label><input value="2900" name="car_transport" type="radio"> &nbsp;{% trans2 lang 'calc-16' %}</label>
+</div>
+<div class="row motorcycle" style="display:none">
+   <label class="required">
+		{% trans2 lang 'calc-14' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input value="0" name="motor_transport" type="radio"> &nbsp;{% trans2 lang 'calc-15' %}</label>
+   <br/>
+   <label><input value="1000" name="motor_transport" type="radio"> &nbsp;{% trans2 lang 'calc-17' %}</label>
+</div>
+<div class="row scooter" style="display:none">
+   <label class="required">
+		{% trans2 lang 'calc-14' %}
+   <span class="required">*</span>
+   </label><br/>
+   <label><input value="0" name="scooter_transport" type="radio"> &nbsp;{% trans2 lang 'calc-15' %}</label>
+   <br/>
+   <label><input value="800" name="scooter_transport" type="radio"> &nbsp;{% trans2 lang 'calc-18' %}</label>
+</div>
+<p style="color:#888;margin-bottom:0;margin-top:0;padding:0 0 3px 30px">* {% trans2 lang 'calc-19' %}</p>
+<p style="color:#888;margin-top:0;margin-bottom:0;padding:0 0 3px 30px">* {% trans2 lang 'calc-20' %}</p>
+<p style="color:#888;margin-top:0;margin-bottom:0;padding:0 0 3px 30px">* Busy, auta, łodzie, maszyny powyżej 2ton - wycena indywidualna</p>
+<p style="color:#888;margin-top:0;margin-bottom:0;padding:0 0 3px 30px">* Załadunek auta niejezdnego - np. urwane kolo +50chf</p>
+<p style="color:#888;margin-top:0;margin-bottom:0;padding:0 0 3px 30px">* Kwota transportu i prowizji jest ceną netto</p>
+<p style="color:#888;margin-top:0;margin-bottom:0;padding:0 0 3px 30px">* W przypadku wystąpienia pola "Typechein" w aukcji równego "X", dodatkowo odpowiednio płatne jest cło</p>
+
+<br/>
+<h3 style="font-size:22px;text-align:left">{% trans2 lang 'calc-21' %}</h3>
+<ul style="margin-bottom:70px">
+   <li style="margin-bottom:5px;"><span>{% trans2 lang 'calc-22' %}: </span><span class="transport_costs" style="font-weight:bold">0</span> <b>PLN</b> &nbsp; <span style="color:#888;">{% trans2 lang 'calc-24' %}</span></li>
+   <li style="margin-bottom:5px;"><span>{% trans2 lang 'calc-23' %}: </span><span class="work_costs" style="font-weight:bold">0</span> <b>CHF</b></li>
+   <li style="margin-bottom:5px;"><span>{% trans2 lang 'calc-25' %}: <span><span class="all_costs" style="font-weight:bold">0</span> <b>PLN</b></li>
+</ul>
+
+{% if is_admin %}
+<h3 style="font-size:22px;text-align:left;margin-top:-25px;">Kalkulator Administratora</h3>
+<div class="row" style="margin-bottom: 40px;">
+	<label>
+	 Przelew do CH:
+	</label> &nbsp;
+	<input type="text" style="margin-bottom:5px" value="" id="transfer_cost" pattern="\d*"> <b>CHF</b>
+	<br>
+	Kurs CHF: <b class="admin_currency_chf"></b><b>PLN</b><br>
+	Kwota przelewu: <b class="admin_transfer_price">0</b><b>PLN</b><br>
+	Dopłata: <b class="admin_sum">0</b><b>PLN</b>
+</div>
+
+<script type="text/javascript">
+
+function admin_update_price(){
+	if ($('#transfer_cost').val() == ''){
+		return;
+	}
+	var chf_rate = parseFloat($('.admin_currency_chf').text()).toFixed(2);
+	var admin_auction_price = parseFloat($('.all_costs').text()).toFixed(2);
+	var admin_transfer_price = parseFloat($('#transfer_cost').val()) * chf_rate;
+	var admin_sum = admin_auction_price - admin_transfer_price;
+
+	$('.admin_transfer_price').text(admin_transfer_price);
+	$('.admin_sum').text(admin_sum);
+}
+
+$("input").on("change", function(){
+	admin_update_price();
+});
+
+</script>
+{% endif %}
+		</div>
+	</div>
+		</div>
+
+{% endblock %}

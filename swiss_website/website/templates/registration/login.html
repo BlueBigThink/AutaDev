@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block content %}
+<div class="container business login-container" style="min-height:400px">
+    <h3 style="margin:40px 0 30px 0">
+        {% trans2 lang 'login-0' %}
+        <hr/>
+    </h3>
+    <div class="col-md-6 col-sm-12" style="width:100%;">
+        <div class="alert alert-warning" role="alert" style="margin-top:27px;margin-bottom:40px;">
+          {% trans2 lang 'login-5' %}<br>
+          <a href="/zarejestruj" style="color:#ac0303;">{% trans2 lang 'login-6' %}</a>
+	  {% if not user.is_authenticated %}
+          <br/>
+          <a href="/przypomnij" style="color:#ac0303;">{% trans2 lang 'login-7' %}</a>
+	  {% endif %}
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12" style="width:100%;">
+      <form class="form-horizontal" method="post" style="max-width:350px;margin:0 auto;">
+        {% if form.errors %}
+            <p class="bg-warning" style="padding-top:15px">{% trans2 lang 'login-1' %}</p>
+        {% endif %}
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_email"  style="text-align:left" class="col-sm-12 control-label">{% trans2 lang 'login-2' %}</label>
+            <div class="col-sm-12">
+                <input name="username" type="text" class="form-control" id="id_email" placeholder="{% trans2 lang 'login-2' %}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_password" style="text-align:left" class="col-sm-12
+            control-label">{% trans2 lang 'login-3' %}</label>
+            <div class="col-sm-12">
+                <input type="password" name="password" class="form-control" required
+                                       id="id_password"
+                                       placeholder="{% trans2 lang 'login-3' %}">
+            </div>
+        </div>
+        <div class="form-group" style="float:right">
+            <div
+                     class="col-sm-offset-2
+                     col-sm-10">
+                <button type="submit" class="btn btn-default red">
+                        {% trans2 lang 'login-4' %}
+                </button>
+            </div>
+        </div>
+      </form>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+	<script src="{% static "website/js/sticky_footer.js" %}"></script>
+{% endblock %}

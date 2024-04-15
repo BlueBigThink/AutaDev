@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block content %}
+{% include 'account/nav.html' %}
+  <div class="container business auctions-container" data-max-page="{{ max_page }}">
+    <div class="content" style="min-height:200px">
+				<h3 class="h3-small" style="margin-bottom:40px;margin-top:60px;">
+					{% trans2 lang 'aa-42' %} <b>{% trans2 lang 'aa-43' %}</b>
+					<hr/>
+				</h3>
+				<p class="alert alert-info" role="alert" style="text-align:center">
+				<b>{% trans2 lang 'aa-44' %}</b><br/>
+				{% trans2 lang 'aa-45' %}
+				</p>
+				<br/>
+				<form class="form-inline" id="new-keyword-form">
+					<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+					<div class="form-group">
+						<label for="keyword">{% trans2 lang 'aa-46' %}</label>
+						<input type="text" class="form-control" id="keyword" name="keyword" placeholder="{% trans2 lang 'aa-47' %}">
+					</div>
+					<button type="submit" class="btn btn-default" style="color:#fff;font-weight:bold;background-color: #b10303;border: 1px solid #b10303;">{% trans2 lang 'aa-48' %}</button>
+				</form>
+				<p class="keywords">
+				{% for tag in tags %}
+					<span style="background:#b10303;border:1px solid #b10303;border-radius:3px;display:block;float:left;color:#fff;padding:5px 7px;margin-right:8px;margin-bottom:8px;">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-left:5px;" data-toggle="tooltip" data-placement="top" title="{% trans2 lang 'aa-49' %}"><span aria-hidden="true">&times;</span></button><span class="text-inside">{{ tag.tag }}</span>
+					</span>
+				{% endfor %}
+				</p>
+    </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+	<script src="{% static "website/js/sticky_footer.js" %}"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+		$(function () {
+			  $('[data-toggle="tooltip"]').tooltip()
+		});
+
+		$('#new-keyword-form').submit(function(e){
+			e.preventDefault();
+
+			var key = $('#keyword').val();
+			if (key.length==0)
+				return;
+
+			var html_block = `
+				<span style="background:#b10303;border:1px solid #b10303;border-radius:3px;display:block;float:left;color:#fff;padding:5px 7px;margin-right:8px;margin-bottom:8px;">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-left:5px;" data-toggle="tooltip" data-placement="top" title="Usuń słowo kluczowe"><span aria-hidden="true">&times;</span></button><span class="text-inside"></span>
+				</span>
+				`
+
+			$('.keywords').append(html_block);
+			$('.keywords').children('span').last().find('.text-inside').text(key);
+
+			var url = '/api/v1/poszukiwane/dodaj/';
+			var data = $(this).serialize();
+
+			$.post(url, data);
+		});
+
+		$(document).on('click', '.close', function(e){
+			var key = $(this).parent().find('.text-inside').text();
+			
+			$(this).parent().fadeOut(300, function(){
+				$(this).remove();
+			});
+
+			var url = '/api/v1/poszukiwane/usun/';
+			var data = {
+				'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+				'keyword': key,
+			};
+
+			$.post(url, data);
+		});
+	});
+
+	</script>
+{% endblock %}

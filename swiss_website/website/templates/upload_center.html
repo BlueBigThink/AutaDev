@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+	<div class="container business">
+		<div class="content" style="max-width:800px; margin: 20px auto 0 auto; text-align: justify">
+				<h3 style="margin-bottom:50px;">
+					{% trans2 lang 'upload-1' %} <b>{{ auction_id }}</b>
+					<hr/>
+				</h3>
+				<h4>{% trans2 lang 'upload-2' %}</h4>
+				{%if not first_name %}
+				<span style="color:#b10303">{% trans2 lang 'upload-3' %}</span>
+				<br/><br/>
+				{% endif %}
+                               <form id="buyer-data-form" method="POST" action="/konto/pliki/{{auction_id}}/" style="margin-bottom:40px">
+                                 {% csrf_token %}
+				 <div class="form-group">
+				    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="{% trans2 lang 'upload-16' %}" value="{{ first_name|default_if_none:"" }}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" required {%if first_name %} disabled {%endif%}>
+				</div>
+				<div class="form-group">
+				    <input type="text" class="form-control" id="nip" name="nip" placeholder="{% trans2 lang 'upload-23' %}" value="{{ nip|default_if_none:"" }}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" {%if first_name %} disabled {%endif%}>
+				</div>
+				 <div class="form-group">
+				    <input type="hidden" class="form-control" name="last_name" value="">
+				</div>
+				 <div class="form-group">
+				    <input type="text" class="form-control" id="address" name="address" placeholder="{% trans2 lang 'upload-18' %}" value="{{ address|default_if_none:"" }}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" required {%if first_name %} disabled {%endif%}>
+				 </div>
+				 <div class="form-group">
+				    <input type="text" class="form-control" id="city" name="city" placeholder="{% trans2 lang 'upload-19' %}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" value="{{ city|default_if_none:"" }}" required {%if first_name %} disabled {%endif%}>
+				</div>
+				 <div class="form-group">
+				    <input type="text" class="form-control" id="postcode" name="postcode" placeholder="{% trans2 lang 'upload-21' %}" value="{{ postcode|default_if_none:"" }}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" required {%if first_name %} disabled {%endif%}>
+				</div>
+				 <div class="form-group">
+				    <input type="text" class="form-control" id="country" name="country" placeholder="{% trans2 lang 'upload-22' %}" value="{{ country|default_if_none:"" }}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" required {%if first_name %} disabled {%endif%}>
+				</div>
+                <div>
+					<input type="hidden" name="accepted" value="1" />
+				</div>
+				<button type="submit" id="buyer-data-form-submit" style="display:none">{% trans2 lang 'upload-4' %}</button>
+
+				</form>
+						
+				<h4>{% trans2 lang 'upload-5' %}</h4>
+				<b>{% trans2 lang 'upload-6' %}</b><br/><br/>
+				<ul>
+					<li><a href="/static/website/upowaznienie_firma_tel.pdf" style="color:#ac0303 !important;font-weight:400;" class="text-important" target="blank">{% trans2 lang 'aa-39' %}</a></li>
+					<li><a href="/static/website/upowaznienie_prywatny_tel.pdf" style="color:#ac0303 !important;font-weight:400;" class="text-important" target="blank">{% trans2 lang 'aa-40' %}</a></li>
+				</ul>
+				<form class="form_file_upload form_class_0" id="form_file_upload_0" style="margin-top:20px" method="POST" action="/konto/pliki/{{auction_id}}/" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input id="input_file_upload" type="file" accept=".jpeg,.jpg,.png,.pdf" style="float:left;border:1px solid #ccc;border-radius:4px;padding:6px;padding-right:50px;margin-bottom:10px;width:100%;" class="form-control-file" id="exampleFormControlFile1" name="user_file">
+					<input type="hidden" class="form-control" id="comment" name="comment" placeholder="{% trans2 lang 'upload-12' %}" value="{% trans2 lang 'upload-12' %}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" style="margin:20px 0 20px 0">
+				</form>
+				<button type="button" id="button_form_file_upload_0" class="btn btn-light" style="margin-bottom:35px"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Dodaj kolejny plik</button>
+				<br/>
+
+				<b>{% trans2 lang 'upload-7' %}</b>
+			<!--<span style="color:#b10303">{% trans2 lang 'upload-8' %}</span>-->
+		    <form class="form_file_upload form_class_1" id="form_file_upload_1" style="margin-top:20px" method="POST" action="/konto/pliki/{{auction_id}}/" enctype="multipart/form-data">
+            	{% csrf_token %}
+				<input id="input_file_upload" accept=".jpeg,.jpg,.png,.pdf" type="file" style="float:left;border:1px solid #ccc;border-radius:4px;padding:6px;padding-right:50px;margin-bottom:10px;width:100%;" class="form-control-file" id="exampleFormControlFile1" name="user_file">
+				<input type="hidden" class="form-control" id="comment" name="comment" placeholder="{% trans2 lang 'upload-12' %}" value="{% trans2 lang 'upload-30' %}" data-errormessage-value-missing="{% trans2 lang 'upload-20' %}" style="margin:20px 0 20px 0">
+			</form>
+			<button type="button" id="button_form_file_upload_1" class="btn btn-light" style="margin-bottom:35px"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Dodaj kolejny plik</button>
+
+			<br/>
+			{%if not first_name %}
+				<button type="submit" id="submit-all-final" class="btn btn-primary" style="background-color: #b10303;border: 1px solid #b10303;color:#fff;margin-top:15px;">{% trans2 lang 'upload-4' %}</button>
+			{% else %}
+				<button type="submit" id="submit-all-final2" class="btn btn-primary" style="background-color: #b10303;border: 1px solid #b10303;color:#fff;margin-top:15px;">{% trans2 lang 'upload-32' %}</button>
+			{%endif%}
+
+			{% if files %}
+			<table class="table" style="margin-top:70px">
+			  <thead>
+			    <tr>
+			      <th scope="col">{% trans2 lang 'upload-11' %}</th>
+			      <th scope="col">{% trans2 lang 'upload-31' %}</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+                            {% for file in files %}
+			    <tr>
+			      <td><a href="/konto/pliki/{{ auction_id }}/{{ file.id|slice:"15:" }}" style="color:#b10303">{{ file.uploaded.name|slice:"11:" }}</a></td>
+                              <td>{{ file.comment }}</td>
+			    </tr>
+                            {% endfor %}
+			  </tbody>
+			</table>
+            {% endif %}
+
+			<p class="alert alert-warning" role="alert" style="text-align:center;margin-top:60px;margin-bottom:40px;">
+				{% trans2 lang 'upload-13' %}<br/>
+				{% trans2 lang 'upload-14' %}<br/>
+				{% trans2 lang 'upload-15' %}
+			</p>
+		</div>
+	</div>
+	<link href="/static/website/css/toast.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+	<script src="/static/website/js/toast.js"></script>
+	<script>
+		$(document).ready(function($){			
+			$('#button_form_file_upload_0').on('click', function(){
+				$('.form_class_0').last().after("<form class=\"form_file_upload form_class_0\" id=\"form_file_upload_0\" style=\"margin-top:20px\" method=\"POST\" action=\"/konto/pliki/{{auction_id}}/\" enctype=\"multipart/form-data\">{% csrf_token %}<input id=\"input_file_upload\" type=\"file\" accept=\".jpeg,.jpg,.png,.pdf\" style=\"float:left;border:1px solid #ccc;border-radius:4px;padding:6px;padding-right:50px;margin-bottom:10px;width:100%;\" class=\"form-control-file\" id=\"exampleFormControlFile1\" name=\"user_file\"><input type=\"hidden\" class=\"form-control\" id=\"comment\" name=\"comment\" placeholder=\"{% trans2 lang 'upload-12' %}\" value=\"{% trans2 lang 'upload-12' %}\" data-errormessage-value-missing=\"{% trans2 lang 'upload-20' %}\" style=\"margin:20px 0 20px 0\"></form>")
+			});
+
+			$('#button_form_file_upload_1').on('click', function(){
+				$('.form_class_1').last().after("<form class=\"form_file_upload form_class_1\" id=\"form_file_upload_1\" style=\"margin-top:20px\" method=\"POST\" action=\"/konto/pliki/{{auction_id}}/\" enctype=\"multipart/form-data\">{% csrf_token %}<input id=\"input_file_upload\" type=\"file\" accept=\".jpeg,.jpg,.png,.pdf\" style=\"float:left;border:1px solid #ccc;border-radius:4px;padding:6px;padding-right:50px;margin-bottom:10px;width:100%;\" class=\"form-control-file\" id=\"exampleFormControlFile1\" name=\"user_file\"><input type=\"hidden\" class=\"form-control\" id=\"comment\" name=\"comment\" placeholder=\"{% trans2 lang 'upload-30' %}\" value=\"{% trans2 lang 'upload-30' %}\" data-errormessage-value-missing=\"{% trans2 lang 'upload-20' %}\" style=\"margin:20px 0 20px 0\"></form>")
+			});
+
+
+			$('#submit-all-final2').on('click', function(event){
+				
+				event.preventDefault();
+				for(var it=0;it<$('.form_class_0').length;it++){
+					var form0 = $('.form_class_0')[it]
+					var formData = new FormData(form0);
+					$.ajax({
+						url: $(form0).attr("action"),
+						type: $(form0).attr("method"),
+						//dataType: "JSON",
+						async: false,
+						data: formData,
+						processData: false,
+						contentType: false,
+						success: function (data, status) {
+
+							$('.table tbody').append('<tr><td><a href="#" style="color:#b10303">'+formData.get('user_file')['name']+'</a></td><td>'+formData.get('comment')+'</td></tr>')
+
+						},
+						error: function (xhr, desc, err) {
+							$.toast({
+								heading: 'Błąd!',
+								text: 'Wgraj plik z poprawnym rozszerzeniem!',
+								showHideTransition: 'slide',
+								hideAfter : 3500,
+								icon: 'error',
+								position: 'top-right'
+							   });
+						}
+					});
+				}
+
+
+				for(var it=0;it<$('.form_class_1').length;it++){
+					form1 = $('.form_class_1')[it]
+					formData = new FormData(form1);
+					$.ajax({
+						url: $(form1).attr("action"),
+						type: $(form1).attr("method"),
+						//dataType: "JSON",
+						async: false,
+						data: formData,
+						processData: false,
+						contentType: false,
+						success: function (data, status) {
+
+							$('.table tbody').append('<tr><td><a href="#" style="color:#b10303">'+formData.get('user_file')['name']+'</a></td><td>'+formData.get('comment')+'</td></tr>')
+																					      if (it+1==$('.form_class_1').length){
+								location.reload();
+							}
+						},
+						error: function (xhr, desc, err) {
+							$.toast({
+								heading: 'Błąd!',
+								text: 'Wgraj plik z poprawnym rozszerzeniem!',
+								showHideTransition: 'slide',
+								hideAfter : 3500,
+								icon: 'error',
+								position: 'top-right'
+							   });
+						}
+					});
+				}
+			});
+
+			$('#submit-all-final').on('click', function(event){
+				event.preventDefault();
+
+				var form = $("form#buyer-data-form");
+				
+				let allAreFilled = true;
+				document.getElementById("buyer-data-form").querySelectorAll("[required]").forEach(function(i) {
+					if (!allAreFilled) return;
+					if (!i.value) allAreFilled = false;
+					if (i.type === "radio") {
+					let radioValueCheck = false;
+					document.getElementById("buyer-data-form").querySelectorAll(`[name=${i.name}]`).forEach(function(r) {
+						if (r.checked) radioValueCheck = true;
+					})
+					allAreFilled = radioValueCheck;
+					}
+				})
+				if (!allAreFilled) {
+					$('#buyer-data-form-submit').click();
+					return;
+				}
+
+				$.confirm({
+					title: '{% trans2 lang 'upload-24' %}',
+					content: '<span style="font-family:Open Sans">{% trans2 lang 'upload-25' %} <b>{% trans2 lang 'upload-26' %}</b>. {% trans2 lang 'upload-27' %}</span>',
+					buttons: {
+						{% trans2 lang 'upload-28' %}: function () {
+
+							for(var it=0;it<$('.form_class_0').length;it++){
+								var form0 = $('.form_class_0')[it]
+								var formData = new FormData(form0);
+								$.ajax({
+									url: $(form0).attr("action"),
+									type: $(form0).attr("method"),
+									//dataType: "JSON",
+									async: false,
+									data: formData,
+									processData: false,
+									contentType: false,
+									success: function (data, status) {
+
+										$('.table tbody').append('<tr><td><a href="#" style="color:#b10303">'+formData.get('user_file')['name']+'</a></td><td>'+formData.get('comment')+'</td></tr>')
+
+									},
+									error: function (xhr, desc, err) {
+										$.toast({
+											heading: 'Błąd!',
+											text: 'Wgraj plik z poprawnym rozszerzeniem!',
+											showHideTransition: 'slide',
+											hideAfter : 3500,
+											icon: 'error',
+											position: 'top-right'
+										   });
+									}
+								});
+							}
+
+
+							for(var it=0;it<$('.form_class_1').length;it++){
+								form1 = $('.form_class_1')[it]
+								formData = new FormData(form1);
+								$.ajax({
+									url: $(form1).attr("action"),
+									type: $(form1).attr("method"),
+									//dataType: "JSON",
+									async: false,
+									data: formData,
+									processData: false,
+									contentType: false,
+									success: function (data, status) {
+
+										$('.table tbody').append('<tr><td><a href="#" style="color:#b10303">'+formData.get('user_file')['name']+'</a></td><td>'+formData.get('comment')+'</td></tr>')
+
+																								      if (it+1==$('.form_class_1').length){
+										$('#buyer-data-form-submit').click();
+										}
+									},
+									error: function (xhr, desc, err) {
+										$.toast({
+											heading: 'Błąd!',
+											text: 'Wgraj plik z poprawnym rozszerzeniem!',
+											showHideTransition: 'slide',
+											hideAfter : 3500,
+											icon: 'error',
+											position: 'top-right'
+										   });
+									}
+								});
+							}
+
+
+						},
+						{% trans2 lang 'upload-29' %}: function () {
+							// anulowano
+						},
+					}
+				});
+			});
+		});
+	</script>
+{% endblock %}
+

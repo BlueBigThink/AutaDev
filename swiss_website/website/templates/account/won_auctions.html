@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block content %}
+{% include 'account/nav.html' %}
+  <div class="container business auctions-container" data-max-page="{{ max_page }}">
+    <div class="content" style="min-height:200px">
+				<h3 class="h3-small" style="margin-bottom:40px;margin-top:60px;">
+					{% trans2 lang 'aa-33' %} <b>{% trans2 lang 'aa-34' %}</b>
+					<hr/>
+				</h3>
+
+{% autoescape off %}
+<div style="margin:0 auto;margin-bottom:90px;max-width: 384px;">
+	<div style="border-left:5px solid #32cd32;padding-left:9px;float:left;margin-right:30px;">{% trans2 lang 'aa-35' %}</div>
+	<div style="border-left:5px solid #00bfff;padding-left:9px;float:left;">{% trans2 lang 'aa-36' %}</div>
+</div>
+{% endautoescape %}
+
+{% if won %}
+{% autoescape off %}
+<p style="text-align:center;font-size:15px;padding-bottom:0;max-width:700px;margin:0 auto 10px auto;">
+  <b>{% trans2 lang 'aa-37' %}</b>
+  {% trans2 lang 'aa-38' %} </p>
+  {% endautoescape %}
+<div style="margin:0 auto;margin-bottom:90px;width:400px">
+<!--
+	<div class="auction-business-info" style="padding-left:9px;float:left;margin-right:30px;">
+		<a href="/static/website/upowaznienie_firma_tel.pdf" style="color:#ac0303 !important;font-weight:400;" class="text-important" target="blank">{% trans2 lang 'aa-39' %}</a>
+        </div>
+	<div class="auction-business-info" style="padding-left:9px;float:left;">
+		<a href="/static/website/upowaznienie_prywatny_tel.pdf" style="color:#ac0303 !important;font-weight:400;" class="text-important" target="blank">{% trans2 lang 'aa-40' %}</a>
+        </div>
+-->
+</div>
+{% endif %}
+
+                <div class="content-inner" style="min-height:200px">
+                    {% for auction in auctions %}
+                    {% if not auction.color %}
+		    <div class="auction-entry" style="width:100%;margin-bottom:-10px;">
+                    {% elif auction.color == 1 %}
+		    <div class="auction-entry" style="border-right:10px solid #32CD32;width:100%;margin-bottom:-10px;">
+                    {% elif auction.color == 2 %}
+		    <div class="auction-entry" style="border-right:10px solid #00BFFF;width:100%;">
+                    {% endif %}
+                        <a href="{{ auction.link }}"><img src="/{{ auction.photos }}" class="auction-entry-image" /></a>
+                          <div class="auction-entry-info">
+                              <h4><a href="{{ auction.link }}">{{ auction.title }}</a></h4>
+                              <p>
+                              <span>{% trans2 lang 'aa-2' %}:</span> <b>{{ auction.production_date }}</b><br/>
+                              <span>{% trans2 lang 'aa-3' %}:</span> <b>{{ auction.run }} km</b><br/>
+                              </p>
+                          </div>
+                          <div class="auction-entry-buy-info">
+                              <p class="auction-bet-info auction-user-bet-info">
+                                <span class="auction-your-offfer">{% trans2 lang 'aa-6' %}:</span> <b class="auction-your-offfer">{{ auction.bet_price }} CHF</b>
+                              </p>
+                          </div>
+                          <div class="auction-entry-actions">
+                          </div>
+                          <div class="auction-entry-clock-icon">
+                          </div>
+                        </div>
+                        <div style="clear:both"></div>
+                        {% if auction.bet_color == 1 %}
+                            <span class="auction-action-make-offer" style="margin-left:90px;margin-right:14px;float:right;position:relative;top:-17px">
+                                <a href="/konto/pliki/{{ auction.ref_id }}">wgraj pliki</a>
+                                 <span>
+                                 </span>
+                            </span>
+                         {% endif %}
+                    {% endfor %}
+		    {% if not auctions %}
+          {% trans2 lang 'aa-41' %}
+ 		    {% endif %}
+                </div>
+    </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

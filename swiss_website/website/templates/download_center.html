@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+	
+	<div class="container business" style="max-width:1100px;">
+		<div class="content" style="max-width:1100px; margin: 20px auto 0 auto; text-align: justify">
+			<h3>
+				Panel potwierdzeń
+				<hr/>
+			</h3>
+<style>
+.table tr {
+    cursor: pointer;
+}
+.hiddenRow {
+    padding: 0 4px !important;
+    background-color: #eeeeee;
+    font-size: 13px;
+}
+
+</style>
+
+
+<form method="GET" action="/panel/potwierdzenia/szukaj/" style="margin:30px auto 20px auto;max-width:300px">
+<div>
+    <div class="input-group">
+      <input type="text" class="form-control" name="ref" placeholder="Szukany nr ref, marka, model">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Szukaj</button>
+      </span>
+    </div>
+  </div>
+</form>
+
+<table class="table table-condensed" style="border-collapse:collapse;">
+    <thead>
+        <tr>
+            <th>VIN/ID</th>
+            <th>Nazwa ubezp.</th>
+            <th>Tytuł aukcji</th>
+            <th>Użytkownik</th>
+            <th>Data zakończenia</th>
+            <th style="width:60px;max-width:60px">Wgrane</th>
+	    <th>Faktura</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in table %}
+        <tr data-toggle="collapse" data-target="#demo{{ forloop.counter }}" class="accordion-toggle">
+            <td>{{ entry.ref_id }}</td>
+            <td>{{ entry.provider_name }}</td>
+            <td><a href="{{ entry.link }}" style="color:#b10303" target="_blank">{{ entry.title|slice:":23" }}</a></td>
+            <td>{{ entry.user }}</td>
+            <td>{{ entry.end_date }}</td>
+            <td>
+                {% if entry.data.accepted %}
+			<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green"></span>
+                {% else %}
+			<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red"></span>
+                {% endif %}
+	    </td>
+            <td>
+                {% if entry.data and entry.data.nip %}
+                      <a target="_blank" href="https://autazeszwajcarii.pl/admin/rest_api/bet/{{ entry.max_bet_id }}/change/"><span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green"></span></a>
+                {% else %}
+		      <a target="_blank" href="https://autazeszwajcarii.pl/admin/rest_api/bet/{{ entry.max_bet_id }}/change/"><span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red"></span></a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr >
+            <td colspan="7" class="hiddenRow">
+                <div class="accordian-body collapse" id="demo{{ forloop.counter }}" style="cursor: default;">
+                     <div class="col-md-6 col-sm-12" style="margin-bottom:15px">
+                         <h6>
+				<b>Dane do faktury na auto</b>
+                         </h6>
+                         <span>{% if entry.data and entry.data.nip %}Nazwa firmy{% else %}Imię i nazwisko{% endif %}:</span> {{ entry.data.first_name }} {{ entry.data.last_name }}<br/>
+                         <span>NIP:</span> {{ entry.data.nip }} <br/>
+                         <span>Ulica, nr domu:</span> {{ entry.data.address }} <br/>
+                         <span>Miasto:</span> {{ entry.data.city }} <br/>
+                         <span>Kod pocztowy:</span> {{ entry.data.postcode }} <br/>
+                         <span>Kraj:</span> {{ entry.data.country }} <br/>
+                         <span>VIN:</span> {{ entry.vin }} <br/>
+                         <span>Cena na fakturze:</span> {{ entry.invoice_price|default:'' }}{% if entry.invoice_price %} CHF{%else%} N/A{%endif%}<br/>
+                     </div>
+                     <div class="col-md-6 col-sm-12" style="margin-bottom:15px">
+                         <h6>
+				<b>Wgrane pliki</b>
+                         </h6>
+                         {% for file in entry.files %}
+				 <a href="/konto/pliki/{{ entry.auction_id }}/{{ file.id }}" style="color:#b10303">{{ file.uploaded.name|slice:"11:" }}</a>: &nbsp; {{ file.comment }}<br/>
+                         {% endfor %}
+		     </div>
+
+	        </div> 
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="btn-group" role="group" aria-label="..." style="float:left;margin-top:20px;margin-bottom:30px">
+  {% if page_id > 1%}
+  <button type="button" class="btn btn-default" onclick="location.href='/panel/potwierdzenia/1/'">Poczatek listy</button>
+  {% endif %}
+</div>
+
+<div class="btn-group" role="group" aria-label="..." style="float:right;margin-top:20px;margin-bottom:30px">
+  {% if page_id > 1%}
+  <button type="button" class="btn btn-default" onclick="location.href='/panel/potwierdzenia/{{ page_id|add:"-1" }}/'">Poprzednia</button>
+  {% endif %}
+  <button type="button" class="btn btn-default" onclick="location.href='/panel/potwierdzenia/{{ page_id|add:"1"}}/'">Nastepna</button>
+</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+$('.accordian-body').on('show.bs.collapse', function () {
+    $(this).closest("table")
+        .find(".collapse.in")
+        .not(this)
+        .collapse('toggle')
+})
+</script>
+{% endblock %}
+

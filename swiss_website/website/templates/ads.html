@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+<div class="container business" style="font-family:'Open Sans', sans-serif;min-height:0">
+		<div class="content" style="margin: 20px auto 0 auto; text-align: justify;min-height:0;">
+				<h3 style="margin:30px 0 0 0;">
+					{% trans2 lang "ads-0" %} <b>{% trans2 lang "ads-1" %}</b>
+					<hr/>
+				</h3>
+		</div>
+</div>
+<!--<div class="long-container">
+	<div class="account-header ads-menu">
+		<div class="container">
+			<ul style="max-width:380px">
+				<li>
+					<a href="#">auto.ricardo.ch</a>
+				</li>
+				<li>
+					<a href="#" style="color:#660000">autoscout24.ch</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div> -->
+
+<div class="container business" style="font-family:'Open Sans', sans-serif;min-height:0">
+	<div class="content" style="margin: 20px auto 0 auto; text-align: justify;min-height:0;">
+
+		<div style="height:800px">
+			<!--<iframe id="axa_frame" src="https://auto.ricardo.ch" width="100%" height="800px" scrolling="auto" class="wrapper">
+				Ta opcja działa niepoprawnie. Niestety, Twoja przeglądarka nie obsługuje ramek pływających (iFrame).
+			</iframe>-->
+			<iframe id="scout_frame" src="https://www.autoscout24.ch/de" width="100%" height="800px" scrolling="auto" class="wrapper">
+				Ta opcja działa niepoprawnie. Niestety, Twoja przeglądarka nie obsługuje ramek pływających (iFrame).
+			</iframe>
+		</div>
+		<div class="alert alert-warning" role="alert" style="margin-top:20px;margin-bottom:40px;">
+		{% trans2 lang 'ads-7' %}: <a class="text-important" href="https://autoscout24.ch">autoscout24.ch</a> , <a class="text-important" href="https://tutti.ch">tutti.ch</a>, <a class="text-important" href="https://ricardo.ch">ricardo.ch</a>. {% trans2 lang 'ads-8' %}
+			<br/>
+			<br/>
+		{% trans2 lang 'ads-2' %} <a href="/zasady" target="_blank" style="color:#ac0303;">{% trans2 lang 'ads-3' %}</a>.
+	
+	</div>
+
+	</div>
+</div>
+{% endblock %}
+{% block scripts %}
+	<script type="text/javascript">
+		//$(document).ready(function(){
+			//$('.ads-menu a:eq(0)').on('click', function(e){
+			//	$('#scout_frame').fadeOut(300, function(e){
+			//		$('#axa_frame').fadeIn();
+			//	});
+			//	$('.ads-menu a').css('color', '#660000');
+			//	$(this).css('color', '#fff');
+			//});
+
+			//$('.ads-menu a:eq(1)').on('click', function(e){
+			//	$('#axa_frame').fadeOut(300, function(e){
+			//		$('#scout_frame').fadeIn();
+			//	});
+			//	$('.ads-menu a').css('color', '#660000');
+			//	$(this).css('color', '#fff');
+			//});
+		//});
+	</script>
+
+{% endblock %}

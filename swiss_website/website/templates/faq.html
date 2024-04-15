@@ -1,0 +1,119 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+{% block content %}
+<div class="container business">
+    <div class="content" style="max-width:800px; margin: 40px auto 0 auto; text-align: justify">
+            <h3>
+                    {% trans2 lang 'faq-1' %}
+                    <hr/>
+                </h3>
+                <p style="font-size:14px;padding:10px 20px 15px 20px;">{% trans2 lang 'faq-2' %}  - <a href="/kontakt" class="text-important">{% trans2 lang 'faq-3' %}</span></p>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top:20px;">
+            <div class="panel">
+                <div class="panel-heading" role="tab" id="headingThree">
+                  <h4 class="panel-title">
+                    <a  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#ac0303;"></span> &nbsp; {% trans2 lang 'faq-4' %}
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                  <div class="panel-body">
+                    {% trans2 lang 'faq-5' %}
+                  </div>
+                </div>
+              </div>
+            <div class="panel">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#ac0303;"></span> &nbsp; {% trans2 lang 'faq-6' %} 
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                  {% trans2 lang 'faq-7' %} 
+                    
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#ac0303;"></span> &nbsp; {% trans2 lang 'faq-8' %} 
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                  {% trans2 lang 'faq-9' %} <a href="/aukcje" class="text-important">{% trans2 lang 'faq-10' %}</a>, {% trans2 lang 'faq-11' %} <a href="/ogloszenia" class="text-important">{% trans2 lang 'faq-12' %}</a>.
+{% trans2 lang 'faq-13' %}
+<br/><br/>
+{% trans2 lang 'faq-14' %} <a class="text-important" href="https://autoscout24.ch">autoscout24.ch</a> , <a class="text-important" href="https://tutti.ch">tutti.ch</a>, <a class="text-important" href="https://ricardo.ch">ricardo.ch</a>. <br/>
+{% trans2 lang 'faq-15' %}
+
+                </div>
+              </div>
+          </div>
+
+            <div class="panel">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo4" aria-expanded="false" aria-controls="collapseTwo">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#ac0303;"></span> &nbsp; {% trans2 lang 'faq-16' %}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo4" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                  {% trans2 lang 'faq-17' %}
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo3" aria-expanded="false" aria-controls="collapseTwo">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#ac0303;"></span> &nbsp; {% trans2 lang 'faq-18' %}
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    {% trans2 lang 'faq-19' %}
+                  </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#ac0303;"></span> &nbsp; {% trans2 lang 'faq-20' %}
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    {% trans2 lang 'faq-21' %} <b class="text-important">{% trans2 lang 'faq-22' %}</b> - {% trans2 lang 'faq-23' %}
+                  </div>
+                </div>
+            </div>
+
+            
+        
+          </div>
+        
+
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}

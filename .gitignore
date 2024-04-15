@@ -1,0 +1,30 @@
+# Temporary files
+__pycache__
+.dist
+*.status
+*.session
+
+# Migrations and Statics
+migrations
+static
+Dockerfile
+
+# Run scripts
+*.sh
+
+# Environments and Configurations
+/swiss_website/venv
+/app_download/codes
+/app_download/configs
+
+# Others
+/azs_notifier
+/bot_detectify
+/swiss_website/web_app
+/swiss_website/cron.d
+/swiss_website/rest_framework
+/swiss_website/supervisor
+/swiss_website/transport
+/swiss_website/user_files 
+docker-compose.yml
+

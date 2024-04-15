@@ -1,0 +1,91 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}"/>
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/actions.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+
+
+<style>
+#content-related {
+    display: none;
+}
+
+.dashboard #content {
+    width: 100% !important;
+    max-width: 1300px !important;
+    margin: 0 auto;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+</style>
+<h3>Powiadomienia SMS</h3>
+<span> Aktualny stan budżetu: <b {% if balance_warning %} style="color:#b10303" {% else %}  style="color:#3c763d" {% endif %}>{{ balance }}</b></span>
+<br/><br/>
+
+{% if alert and success %}
+<div class="alert alert-success" role="alert">
+    {% if activated %}
+        Powiadomienia SMS zostały pomyślnie <b>aktywowane</b>.
+    {% else %}
+        Powiadomienia SMS zostały pomyślnie <b>wyłączone</b>.
+    {% endif %}
+</div>
+{% elif alert and not success %}
+<div class="alert alert-danger" role="alert">
+    Wystąpił błąd podczas zapisywania. <b>Upewnij się, że:</b>
+    <ul>
+        <li>numer telefonu zaczyna się od +48</li>
+        <li>podano zarówno datę i czas lub nie podano ich wcale</li>
+    </ul>
+</div>
+{% endif %}
+
+<form action="/admin/rest_api/betnotificationsmodel/bet-notifications/" method="POST">
+    {% csrf_token %}
+    <label for="phone_number">Numer telefonu</label> &nbsp;
+    <input required type="text" id="phone_number" name="phone_number" value="{{ phone_number }}" />
+    <br/><br/>
+    <label for="date">Data zakończenia aukcji</label>
+
+    <p class="datetime">
+        Data: <input type="text" value="{{ end_date }}" name="end_date_0" size="10" class="vDateField" id="id_start_date_0">
+      <br>
+        Czas: <input type="text" value="{{ end_time }}" name="end_date_1" size="8" class="vTimeField" id="id_start_date_1">
+    </p>
+    <br/>
+
+    <label for="activated">Aktywowany</label> &nbsp; &nbsp; 
+    <input type="checkbox" id="activated" name="activated" {% if activated %} checked {% endif %}/><br/><br/>
+    <input type="submit" value="Zapisz">
+</form>
+<br/>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

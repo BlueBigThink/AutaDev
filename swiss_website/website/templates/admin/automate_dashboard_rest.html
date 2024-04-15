@@ -1,0 +1,73 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_urls static admin_list %}
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<style>
+#content-related {
+    display: none;
+}
+
+.dashboard #content {
+    width: 100% !important;
+    max-width: 1300px !important;
+    margin: 0 auto;
+}
+</style>
+<h1>Panel Zarządzania Automatyzacją</h1>
+
+<h3>Zmiana Danych Logowania Rest</h3><br/>
+
+{% if status_success %}
+<div class="alert alert-success" role="alert" style="color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;padding: 15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;">
+    {{ status_success }}
+</div>
+{% elif status_error %}
+<div class="alert alert-danger" role="alert" style="color:#a94442;background-color:#f2dede;border-color:#ebccd1;padding:15px;margin-bottom: 20px;border: 1px solid transparent;border-radius: 4px;">
+    {{ status_error }}
+</div>
+{% endif %}
+
+<div class="col-md-6">
+<div style="padding: 15px;color:#8a6d3b;border: 1px solid transparent;border-radius:4px;background-color:#fcf8e3;border-color:#faebcc;">Wprowadź poniżej nowe dane logowania i zapisz. Poprzednie dane zostaną nadpisane, więc <b>upewnij się że hasło zostało przepisane poprawnie.</b></div><br/>
+<br/>
+<form enctype="multipart/form-data" action="/admin/rest_api/automatedashboardmodel/automatedashboard/rest/changepass/" method="post" id="auction_form" novalidate="">
+    {% csrf_token %}
+    <fieldset class="module aligned ">
+        <div class="form-row field-username">
+            <div>
+                <label class="required" for="id_username">Login:</label>
+                <input type="text" name="username" value="" class="vTextField" maxlength="127" required="" id="id_username">
+            </div>
+        </div>
+        <div class="form-row field-password">
+            <div>
+                <label class="required" for="id_password">Hasło:</label>
+                <input type="password" name="password" value="" class="vTextField" maxlength="127" required="" id="id_password">
+            </div>
+        </div>
+    </fieldset>
+    <input type="submit" value="Zapisz dane" name="_continue">
+</form>
+
+</div>
+<div style="clear:both;width:100%;"></div>
+<br/><br/>
+<!--
+
+<form action="/admin/rest_api/languagemodel/languages/" method="POST">
+    {% csrf_token %}
+    <textarea name="file_content" style="width: 100%; min-height: 600px;">{{ file_content }}</textarea>
+    <br/>
+    <p>Po kliknięciu "Zaktualizuj" serwer zostanie zrestartowany, pamiętaj aby zachować odpowiednie formatowanie!</p>
+    <input type="submit" value="Zaktualizuj">
+</form>
+
+-->
+{% endblock %}

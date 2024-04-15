@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block content %}
+<div class="container business login-container" style="min-height:400px;max-width:500px;margin-left:auto;margin-right:auto;">
+      <h4 style="text-align:center">
+              Przypomnij hasło
+        <br/>
+        <hr class="hr-h4" />
+      </h4>
+
+    <div class="col-md-12 col-sm-12">
+      <form class="form-horizontal" method="post" style="max-width:350px;margin:0 auto;">
+        {% if error %}<p class="alert alert-danger">{{ error }}</p>{% endif %}
+        {% if success %}<p class="alert alert-warning">{{ success }}</p>{% endif %}
+        {% csrf_token %}
+        {% if not token %}
+        <div class="form-group">
+            <label for="id_email"  style="text-align:left" class="col-sm-12 control-label">{% trans2 lang 'login-2' %}</label>
+            <div class="col-sm-12">
+                <input name="username" type="text" class="form-control" id="id_email" placeholder="{% trans2 lang 'login-2' %}" required>
+            </div>
+        </div>
+        <div class="form-group" style="float:right">
+            <div
+                     class="col-sm-offset-2
+                     col-sm-10">
+                <button type="submit" class="btn btn-default red" style="margin-right: 20px;">
+                        Przypomnij
+                </button>
+            </div>
+        </div>
+        {% else %}
+        <div class="form-group">
+            <label for="id_password1" style="text-align:left" class="col-sm-12
+            control-label">Nowe hasło</label>
+            <div class="col-sm-12">
+                <input type="password" name="password1" class="form-control" required
+                                       id="id_password1"
+                                       placeholder="{% trans2 lang 'login-3' %}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id_password2" style="text-align:left" class="col-sm-12
+            control-label">Powtórz hasło</label>
+            <div class="col-sm-12">
+                <input type="password" name="password2" class="form-control" required
+                                       id="id_password2"
+                                       placeholder="{% trans2 lang 'login-3' %}">
+            </div>
+        </div>
+        <div class="form-group" style="float:right">
+            <div
+                     class="col-sm-offset-2
+                     col-sm-10">
+                <button type="submit" class="btn btn-default red" style="margin-right: 20px;">
+                        Ustaw hasło
+                </button>
+            </div>
+        </div>
+        {% endif %}
+      </form>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static "website/js/sticky_footer.js" %}"></script>
+{% endblock %}

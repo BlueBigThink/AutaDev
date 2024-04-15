@@ -1,0 +1,106 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+	<div class="long-container main">
+		<a href="/firma">
+			<img src="{% static "website/img/main_button.png" %}" />
+		</a>
+	</div>
+
+  <div class="long-container about-infos">
+    <div class="row" style="margin-left:0;margin-right:0" >
+      <div class="container" >
+        <div class="col-lg-4 col-sm-4 col-xs-6 about_img">
+		<img src="{% static "website/img/home_top2.png" %}" style="position:relative;margin-top:-30px" class="img-responsive"/>
+          </div>
+          <div class="col-lg-8 col-sm-8 col-xs-6 marketing-text">
+            <h3>O FIRMIE</h3>
+            Od 17 lat specjalizujemy się w sprowadzaniu pojazdów ze Szwajcarii do Polski.
+	    Bezpośrednio importujemy auta - nie jesteśmy komisem. Dysponujemy własnym, ubezpieczonym transportem.<br/><br/>
+            <span class="last-line">
+                Więcej dowiesz się w <a style="color:#ac0303 !important" href="/firma" class="text-important">O FIRMIE</a>
+            </span>
+          </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:0;margin-right:0">
+      <div class="container">
+           <div class="col-lg-4 col-sm-4 col-xs-6 about_img">
+		   <img src="{% static "website/img/home_center3.png" %}" class="img-responsive"/>
+          </div>
+          <div class="col-lg-8 col-sm-8 col-xs-6 marketing-text">
+            <h3>AUKCJE/LICYTACJE</h3>
+	    Ponadto bezpośrednio licytujemy pojazdy ze wszystkich ubezpieczalni w Szwajcarii.<br/><br/> 
+            <span class="last-line">
+              Więcej dowiesz się w <a style="color:#ac0303 !important" href="/aukcje" class="text-important" style="color:#ac0303 !important">AUKCJE</a>
+            </span>
+          </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:0;margin-right:0">
+      <div class="container">
+           <div class="col-lg-4 col-sm-4 col-xs-6 about_img">
+		   <img src="{% static "website/img/home_bot34.png" %}"  class="img-responsive"/>
+          </div>
+          <div class="col-lg-8 col-sm-8 col-xs-6 marketing-text">
+            <h3>OGŁOSZENIA</h3>
+	    Jeśli interesuje Cię zakup auta spoza ubezpieczalni - wejdź w zakładkę OGŁOSZENIA, kupimy dla Ciebie każdy samochód ze Szwajcarii.
+	    <br/><br/>
+            <span class="last-line">
+              Zajrzyj do zakładki <a style="color:#ac0303 !important" href="/ogloszenia" class="text-important">OGŁOSZENIA</a>
+            </span>
+          </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:0;margin-right:0">
+      <div class="container">
+           <div class="col-lg-4 col-sm-4 col-xs-6 about_img">
+		   <img src="{% static "website/img/home_center35.png" %}" class="img-responsive"/>
+          </div>
+          <div class="col-lg-8 col-sm-8 col-xs-6 marketing-text">
+            <h3>TRANSPORT</h3>
+	    Chcesz przetransportować auto niekupione u nas? Skorzystaj z naszego zaawansowanego systemu i wylicz dokładnie cenę swojego przewozu.<br/><br/> 
+            <span class="last-line">
+              Więcej dowiesz się w <a style="color:#ac0303 !important" targe="blank" href="http://transportzeszwajcarii.pl" class="text-important">TRANSPORT</a>
+            </span>
+          </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:0;margin-right:0">
+      <div class="container">
+         <div class="col-lg-4 col-sm-4 col-xs-6 about_img">
+		 <img src="{% static "website/img/home_bot24.png" %}" style="position:relative;margin-bottom:-40px;" class="img-responsive"/>
+          </div>
+          <div class="col-lg-8 col-sm-8 col-xs-6 marketing-text">
+            <h3>ZAREJESTRUJ SIĘ</h3>
+	    Zarejestrowani klienci mają swoje loginy i indywidualne hasła - wprowadzają swoje oferty samodzielnie oraz mają dostęp do funkcji niewidocznych na stronie.<br/><br/> 
+            <span class="last-line">
+              <a href="/zarejestruj" style="color:#ac0303 !important" class="text-important">ZAREJESTRUJ SIĘ</a> bez kosztów
+            </span>
+          </div>
+         
+      </div>
+    </div>
+
+  </div>
+<div class="long-container map">
+	<div class="container">
+		<div id="map-frame" style="height:274px; display:inline-block; overflow:hidden;">
+			<iframe src="https://www.google.com/maps/d/embed?mid=1QCa9hAh1z-tsxbFQkC2C0Fz38Ok" width="1000" height="318" frameborder="0"  style="position:relative;top:-46px;border:none"></iframe>
+		</div>
+			<div class="contact-box pull-right">
+				<h3>
+					skontaktuj <b>się z nami</b>
+					<hr/>
+				</h3>
+				tel. 607 20 70 90 Radek<br/>
+				email. dobre@autazeszwajcarii.pl
+			</div>
+	</div>
+</div>
+{% endblock %}

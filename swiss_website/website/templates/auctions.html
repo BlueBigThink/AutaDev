@@ -1,0 +1,314 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load trans2 %}
+
+<div class="container">
+    {% include "language.html" %}
+    {% if user.is_authenticated %}
+    <div class="login-navbar">
+
+        <!--<a href="/zasady" style="color:#ac0303 !important;font-weight:400;" class="text-important" target="blank">{% trans2 lang 'ads-4' %}</a> &nbsp; &nbsp; &nbsp;  -->
+	<div style="color:#ac0303 !important;font-weight:400;" class="text-important">Upoważnienia wysyłamy na adres e-mail</div>
+<!--        <a href="/static/website/upowaznienie_firma_tel.pdf" style="color:#ac0303 !important;font-weight:400;" class="text-important" target="blank">{% trans2 lang 'ads-5' %}</a>&nbsp; &nbsp; &nbsp;
+        <a href="/static/website/upowaznienie_prywatny_tel.pdf" style="color:#ac0303 !important;font-weight:400;" class="text-important" target="blank">{% trans2 lang 'ads-6' %}</a> &nbsp;&nbsp; &nbsp;
+-->
+    </div>
+    {% endif %}
+</div>
+
+  <div class="menu-bottom long-container"></div>
+
+  <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 auctions-top-box" style="float:right;">
+	    <div id="dvImage" class="auctions-top" style="no-repeat center background-size:cover"></div>
+          <div class="info-more-rules pull-right" style="margin-top:-20px"></div>
+        </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 auctions-search-box" style="float:right;">
+              <div class="auctions-search">
+                  <form action="/aukcje/" method="GET">
+                       <!--
+                       <div class="form-group form-search-big">
+                            <label class="control-label" for="brand">{% trans2 lang 'main-1' %}</label>
+                        {% if data_form.brand %}
+                            <input type="text" id="brand" name="brand" class="form-control" placeholder="{{ data_form.brand }}" value="{{ data_form.brand }}">
+                        {% else %}
+                            <input type="text" id="brand" name="brand" class="form-control" placeholder="{% trans2 lang 'main-26' %}" value="{{ data_form.brand }}">
+                        {% endif %}
+                      </div>
+                      -->
+                            <input type="hidden" id="brand" name="brand" class="form-control" placeholder="{% trans2 lang 'main-26' %}" value="{{ data_form.brand }}">
+
+                       <div class="form-group form-search-big" style="margin-left:0px;">
+                            <label class="control-label" for="run">{% trans2 lang 'main-2' %}</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">{% trans2 lang 'main-3' %}</div>
+                            <input type="number" class="form-control" id="run_from" name="run_from" placeholder="{{ data_form.run_from|default:"0" }}" value="{{ data_form.run_from }}">
+                            <div class="input-group-addon">{% trans2 lang 'main-4' %}</div>
+                            <input type="number" class="form-control" id="run_to" name="run_to" placeholder="{{ data_form.run_to|default:"200 000" }}" value="{{ data_form.run_to }}">
+                        </div>
+                      </div>
+
+                       <div class="form-group form-search-big" style="margin-left:0px;">
+                            <label class="control-label" for="year">{% trans2 lang 'main-5' %}</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">{% trans2 lang 'main-3' %}</div>
+                            <input type="number" class="form-control" min="1900" max="2033" id="production_date_from" name="production_date_from" placeholder="{{ data_form.production_date_from|default:"1900" }}" value="{{ data_form.production_date_from }}">
+                            <div class="input-group-addon">{% trans2 lang 'main-4' %}</div>
+                            <input type="number" min="1900" max="2033" class="form-control" id="production_date_to" name="production_date_to" placeholder="{{ data_form.production_date_to|default:current_year }}" value="{{ data_form.production_date_to }}">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-left:0px;float:left;">
+                        <label class="control-label" for="phrase">{% trans2 lang 'main-6' %}</label>
+                        <div class="input-group">
+                            {% if data_form.phrase %}
+                                <input type="text" id="phrase" name="phrase" class="form-control" placeholder="{{ data_form.phrase }}" value="{{ data_form.phrase }}">
+                            {% else %}
+                                <input type="text" id="phrase" name="phrase" class="form-control" placeholder="{% trans2 lang 'main-27' %}" value="{{ data_form.phrase }}">
+                            {% endif %}
+
+                            <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="{% trans2 lang 'main-7' %}"></span></div>
+                        </div>
+
+
+                    </div>
+                    <button type="submit" style="margin-left:20px;margin-top:24px" class="btn btn-primary">{% trans2 lang 'main-8' %} &nbsp; <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="clear"></div>
+  <div class="container business auctions-container" data-max-page="{{ max_page }}" data-token="{{ csrf_token }}">
+    <div class="content">
+                <h3 style="margin-bottom:40px;margin-top:60px;">
+                        {% trans2 lang 'main-10' %} / <b>{% trans2 lang 'main-11' %}</b>
+                    <hr/>
+                </h3>
+                <div class="content-inner">
+                    {% for auction in auctions %}
+                    <div class="auction-entry{% if auction.highlighted %} auction-entry-highlighted{% endif %}">
+                        {% if auction.min_image %}
+
+                                {% if auction.min_image.url|slice:":30" == '/auction_photos/auction_photos' %}
+                               <!-- {{ auction.min_image }} -->
+                               <!-- {{ auction.min_image.url }} -->
+                                <a href="{{ auction.link }}"><div class="auction-entry-highlighted-bar">{% trans2 lang 'auction-28' %}</div><img class="auction-entry-image" onerror="javascript:this.src='/static/website/img/no_image.png'" src="/{{ auction.min_image }}" /></a>
+                                {% else %}
+
+                                <a href="{{ auction.link }}"><div class="auction-entry-highlighted-bar">{% trans2 lang 'auction-28' %}</div><img class="auction-entry-image" onerror="javascript:this.src='/static/website/img/no_image.png'" src="{{ auction.min_image.url | slice:"38:" }}" /></a>
+                                <!--    <a href="{{ auction.link }}"><img class="auction-entry-image" src="/{{ auction.photos }}" /></a> -->
+                                {% endif %}
+                        {% else %}
+                                <a href="{{ auction.link }}"><div class="auction-entry-highlighted-bar">{% trans2 lang 'auction-28' %}</div><img class="auction-entry-image" src="/{{ auction.photos }}" onerror="javascript:this.src='/static/website/img/no_image.png'" /></a>
+
+                        {% endif %}
+                          <div class="auction-entry-info">
+                  <h4><a href="{{ auction.link }}">{{ auction.title|slice:":55" }}</a></h4>
+                              <p>
+                              <span>{{ main12 }}:</span> <b>{{ auction.production_date }}</b><br/>
+                              <span>{{ main13 }}:</span> <b>{{ auction.run }} km</b>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span>{{ main16 }}:</span> <b>{{ auction.ref_id }}</b> </b> <br/>
+                              </p>
+                          </div>
+                          <div class="auction-entry-buy-info">
+                              <p class="auction-end-info">
+                  <span>{{ main14 }}:</span> <b>{{ auction.finish_date }}</b><br/>
+                                <span>{{ main15 }}: <b></b></br>
+                              </p>
+                              <p class="auction-bet-info">
+                              </p>
+                          </div>
+                          <div class="auction-entry-actions">
+                  <span class="auctions-observations1">
+                      {% if auction.observed %}
+                      <span class="auction-action-add-to-observed" data-auction-id="{{ auction.id }}" style="display:none;cursor:pointer">
+                            {{ main17 }}
+                      </span>
+                      <span class="auction-action-remove-from-observed" data-auction-id="{{ auction.id }}" style="display:block;cursor:pointer">
+                            {{ main18 }}
+                      </span>
+                      {% else %}
+                      <span class="auction-action-remove-from-observed" data-auction-id="{{ auction.id }}" style="display:none;cursor:pointer">
+                             {{ main18 }}
+                      </span>
+                          {%if user.is_authenticated %}
+                      <span class="auction-action-add-to-observed" data-auction-id="{{ auction.id }}" style="display:block;cursor:pointer">
+                            {{ main17 }}
+                      </span>
+                        {% else %}
+                      <span class="auction-action-add-to-observed" data-auction-id="{{ auction.id }}" style="display:block;cursor:pointer" data-toggle="tooltip" data-placement="top" title="{{ main20 }}">
+                            {{ main17 }}
+                      </span>
+
+                        {% endif %}
+                      {% endif %}
+                  </span>
+                            <span class="auction-action-make-offer">
+                                <a href="{{ auction.link }}">{{ main19 }}</a>
+                                 <span>
+                                 </span>
+                            </span>
+                          </div>
+                          <div class="auction-entry-clock-icon">
+                          </div>
+                        </div>
+                        <div style="clear:both"></div>
+                    {% endfor %}
+                </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                  ...
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+          </div>
+      </div>
+  </div><!-- Modal -->
+  <div class="flying-calc">
+      <div class="panel panel-default">
+          <div class="panel-heading">{% trans2 lang 'main-21' %}</div>
+              <div class="panel-body">
+                  <form class="form-inline">
+                      <div class="form-group">
+                          <div style="margin-bottom:10px;">{% trans2 lang 'main-22' %}:</div>
+                          <label class="sr-only" for="exampleInputAmount">{% trans2 lang 'main-23' %}</label>
+                          <div class="input-group">
+                              <div class="input-group-addon">$</div>
+                              <input type="text" id="costs_auction_small" class="form-control" id="exampleInputAmount" placeholder="{% trans2 lang 'main-24' %}">
+                              <div class="input-group-addon">.00</div>
+                          </div>
+                          <div class="flying-calc-price" style="text-align:center;">
+                              <span>
+                                  <span style="color:#aaa">{% trans2 lang 'main-25' %}:</span> <span id="price_display_calc">2400</span> PLN
+                              </span>
+
+                          </div>
+                      </div>
+                  </form>
+              </div>
+      </div>
+
+  </div>
+{% endblock %}
+{% block scripts %}
+<!-- <script src="{% static "website/js/lazyload.min.js" %}"></script> -->
+    <script src="{% static "website/js/moment.min.js" %}"></script>
+    <script src="{% static "website/js/moment-timezone-with-data.min.js" %}"></script>
+    <script src="{% static "website/js/auctions.js" %}"></script>
+    <script type="text/javascript">
+$(document).ready(function(){
+    //lazyload();
+
+    var chf_price = 4.11;
+
+    $.get('/api/v1/currencies', function(data) {
+            chf_price = data['chf'];
+    });
+
+    function display_price(price_in_chf)
+    {
+        var price_in_pln = parseInt(price_in_chf * chf_price);
+
+        if (isNaN(price_in_pln))
+            price_in_pln = 0;
+
+        $('#price_display_calc').text(price_in_pln);
+        $('.flying-calc-price').fadeIn();
+    }
+
+    $("#costs_auction_small").keydown(function (e) {
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || (e.keyCode >= 35 && e.keyCode <= 40)) {
+            return;
+
+        }
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+
+        }
+
+    });
+
+    $("#costs_auction_small").keyup(function (e) {
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || (e.keyCode >= 35 && e.keyCode <= 40)) {
+
+            auction_price = parseInt($(this).val());
+
+            display_price(auction_price);
+
+        }
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+
+        }
+        else {
+            auction_price = parseInt($(this).val());
+
+            display_price(auction_price);
+        }
+    });
+});
+    $(document).ready(function(){
+        var lang = 'pl';
+        var value = "; " + document.cookie;
+        var parts = value.split("lang=");
+        if (parts.length == 2)
+            lang = parts.pop().split(";").shift();
+
+        $('.language-'+lang).addClass('active-lang');
+        $('.language-pl').on('click', function(){
+            document.cookie = 'lang=pl;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-en').on('click', function(){
+            document.cookie = 'lang=en;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-ru').on('click', function(){
+            document.cookie = 'lang=ru;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-de').on('click', function(){
+            document.cookie = 'lang=de;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-uk').on('click', function(){
+            document.cookie = 'lang=uk;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+    });
+    </script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    var images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
+    $(function () {
+        var i = 0;
+        $("#dvImage").css("background-image", "url(/static/website/banner/" + images[i] + ")");
+        $("#dvImage").css("background-size", "cover");
+        setInterval(function () {
+            i++;
+            if (i == images.length) {
+                i = 0;
+            }
+            $("#dvImage").fadeOut(1500, function () {
+                $(this).css("background-image", "url(/static/website/banner/" + images[i] + ")");
+                $(this).css("background-size", "cover");
+                $(this).fadeIn("slow");
+            });
+        }, 7000);
+    });
+</script>
+{% endblock %}

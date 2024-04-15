@@ -1,0 +1,528 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block title %} 
+    <title>AutaZeSzwajcarii.pl - {{ car.title }}</title> 
+    <meta property="og:image" content="https://autazeszwajcarii.pl/{{ photos.0 }}" />
+    <meta name="robots" content="nofollow">
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-bottom:-20px;position:relative;z-index:999;">
+        {% include "language.html" %}
+    </div>
+  <div class="container business auction-details-container notranslate">
+    <div class="auction-detals-header-wrapper">
+        <div class="auction-details-header notranslate" style="background: url('/{{ photos.0 }}') center no-repeat;">
+      </div>
+      
+    </div>
+  </div>
+  <div class="container auction-details-head-info-container notranslate" data-token="{{ csrf_token }}">
+    <div class="container">
+        <div class="auction-details-head-info">
+          <div class="auction-details-head-image">
+        <a class="example-image-link" href="/{{ photos.0 }}" data-lightbox="example-set" data-title="{{ car.title }}">
+              <img src="/{{ photos.0 }}" style="max-width:240px;max-height: 200px" onerror="javascript:this.src='/static/website/img/no_image.png'"/>
+        </a>
+          </div>
+          <div class="auction-details-head-title">
+            <h3>
+                {{ car.title }}
+            </h3>
+            <p style="margin-bottom:-10px">
+                            <span>{% trans2 lang 'auction-1' %}:</span> <b>{% if car.production_date == '1 stycznia 1970' %}Brak informacji{% else %}{{ car.production_date }}{% endif %}</b><br/>
+                            <span>{% trans2 lang 'auction-2' %}:</span> <b style="color:#ac0303">500 224 555</b><br/>
+            </p>
+          </div>
+           <div class="auction-details-head-end-info">
+              <span>{% trans2 lang 'auction-3' %}:</span> <b>{{ car.finish_date }}</b><br/>
+              <span>{% trans2 lang 'auction-4' %}: <b></b></br>
+          </div>
+           {% if is_active or user.is_superuser %}
+          <div class="auction-details-head-offer" style="margin-top: -20px">
+      <span class="auctions-observations1" style="border:none;">
+          {% if car.observed %}
+	  <span class="auction-action-add-to-observed" data-auction-id="{{ car.id }}" style="display:none;cursor:pointer;width: 174px;height: 35px;background-color: silver;text-align: center;font-size: 13px;caption-side: rebeccapurple;padding-top: 8px;text-transform: uppercase;margin-right: 63px;color: #fff;text-align: center;">
+            {% trans2 lang 'auction-5' %}
+          </span>
+	  <span class="auction-action-remove-from-observed" data-auction-id="{{ car.id }}" style="display:block;cursor:pointer;width: 174px;height: 35px;background-color: silver;text-align: center;font-size: 13px;caption-side: rebeccapurple;padding-top: 8px;text-transform: uppercase;margin-right: 63px;color: #fff;text-align: center;">
+            {% trans2 lang 'auction-6' %}
+          </span>
+          {% else %}
+	  <span class="auction-action-remove-from-observed" data-auction-id="{{ car.id }}" style="display:none;cursor:pointer;width: 174px;height: 35px;background-color: silver;text-align: center;font-size: 13px;caption-side: rebeccapurple;padding-top: 8px;text-transform: uppercase;margin-right: 63px;color: #fff;text-align: center;">
+            {% trans2 lang 'auction-6' %}
+          </span>
+              {% if user.is_authenticated %}
+	      <span class="auction-action-add-to-observed" data-auction-id="{{ car.id }}" style="display:block;cursor:pointer;width: 174px;height: 35px;background-color: silver;text-align: center;font-size: 13px;caption-side: rebeccapurple;padding-top: 8px;text-transform: uppercase;margin-right: 63px;color: #fff;text-align: center;">
+                {% trans2 lang 'auction-5' %}
+              </span>
+            {% else %}
+	      <span class="auction-action-add-to-observed" data-auction-id="{{ auction.id }}" style="display:block;cursor:pointer;width: 174px;height: 35px;background-color: silver;text-align: center;font-size: 13px;caption-side: rebeccapurple;padding-top: 8px;text-transform: uppercase;margin-right: 63px;color: #fff;text-align: center;" data-target="#infoRegisterModal" data-toggle="custom-tooltip" title="{% trans2 lang 'auction-8' %}">
+                {% trans2 lang 'auction-5' %}
+              </span>
+            {% endif %}
+          {% endif %}
+      </span>
+            <span class="auction-action-make-offer">
+              {% if user.is_authenticated %}
+                {% if user_accepted %}
+		<a href="#" data-toggle="modal" data-target="#myModal" style="width:150px;height:35px;background-color: #ac0303;text-align: center;font-size: 13px;caption-side: rebeccapurple;font-weight: ;padding-top: 8px;text-transform: uppercase;text-decoration:none;">{% trans2 lang 'auction-9' %}</a>
+                {% else %}
+		    <a href="#" data-toggle="custom-tooltip" data-placement="top" title="{% trans2 lang 'auction-10' %}" style="width:150px;height:35px;background-color: #ac0303;text-align: center;font-size: 13px;caption-side: rebeccapurple;font-weight: ;padding-top: 8px;text-transform: uppercase;text-decoration:none;">{% trans2 lang 'auction-9' %}</a>
+                {% endif %}
+            {% else %}
+		<a href="#" data-toggle="custom-tooltip" data-toggle="modal" data-target="#infoRegisterModal" title="{% trans2 lang 'auction-26' %}" style="width:150px;height:35px;background-color: #ac0303;text-align: center;font-size: 13px;caption-side: rebeccapurple;font-weight: ;padding-top: 8px;text-transform: uppercase;text-decoration:none;">{% trans2 lang 'auction-9' %}</a>
+            {% endif %}
+                 <span>
+                                  
+                 </span>
+            </span>
+          </div>
+          {% endif %}
+        </div>
+    </div>
+  </div>
+
+  <div class="container auction-details-more-container">
+    <div class="container notranslate">
+      <div class="auction-details-left col-lg-6 col-sm-12 business">
+        <h3 style="margin-bottom:40px">
+                    {% trans2 lang 'auction-11' %}
+                    <hr/>
+                </h3>
+        <!--<ul class="auction-details-basic-info">
+          <li><span>abc:</span> <b>abc</b></li>
+          <li><span>abc:</span> <b>abc</b></li>
+          <li><span>abc:</span> <b>abc</b></li>
+          <li><span>abc:</span> <b>abc</b></li>
+          <li><span>abc:</span> <b>abc</b></li>
+          <li><span>abc:</span> <b>abc</b></li>
+          <li><span>abc:</span> <b>abc</b></li>
+
+        </ul>-->
+        <table class="table table-bordered table-striped" style="max-width: 400px;margin:0 auto;">
+          <col width="30%" />
+          <col width="70%" />
+          <tr>
+            <td>{% trans2 lang 'auction-12' %}</td>
+            <td>{{ car.brand }}</td>
+          </tr>
+          <tr>
+            <td>{% trans2 lang 'auction-13' %}</td>
+            <td>{{ car.run }}</td>
+          </tr>
+          <tr>
+            <td>{% trans2 lang 'auction-1' %}</td>
+            <td>{{ car.production_date }}</td>
+          </tr>
+          <tr>
+            <td>{% trans2 lang 'auction-14' %}</td>
+            <td>{{ car.end_date }}</td>
+          </tr>
+          <tr>
+            <td>{% trans2 lang 'auction-15' %}</td>
+            <td>
+               {{ car.ref_id }}
+               {%if car.provider_name == 'scc'%}
+	       {{car.provider_id | slice:"0:6" }}
+               {%endif%}
+	    </td>
+          </tr>
+                </table>
+                <!--                    <div class="alert alert-warning" role="alert" style="margin-top:27px;margin-bottom:40px;">
+                        Więcej zdjęć aukcji tylko dla zalogowanych.<br>
+                        <a href="/zasady" style="color:#ac0303;">Dowiedz się więcej!</a>
+                    </div>
+		-->
+      </div>
+      <div class="auction-details-right col-lg-6 col-sm-12 business">
+          <h3 style="margin-bottom:40px">
+            {% trans2 lang 'auction-16' %}
+                    <hr/>
+                </h3>
+
+         <div class="auction-gallery">
+<!--		 <div class="auction-gallery-main{% if not user_accepted %} not-loggedin{% endif %}"> -->
+	   <div class="auction-gallery-main">
+           <a class="example-image-link" href="/{{ photos.1 }}" data-lightbox="example-set" data-title="{{ car.title }}"><img class="example-image" src="/{{ photos.1 }}" alt=""/></a>
+           {% for img in photos %}
+                {% if forloop.counter != 1 and forloop.counter != 2 %}
+
+                    <a class="example-image-link cars-special-interface" href="/{{ img }}" data-lightbox="example-set" data-title="{{ car.title }}"><img class="example-image" src="/{{ img }}" alt="" style="display:none;" /></a>
+                {% endif %}
+
+           {% endfor %}
+           </div>
+           <div class="auction-gallery-thumbs">
+               <a class="example-image-link" href="/{{ photos.2 }}" data-lightbox="example-set" data-title="{{ car.title }}"><img class="example-image" src="/{{ photos.2 }}" alt="" /></a>
+               <a class="example-image-link" href="/{{ photos.3 }}" data-lightbox="example-set" data-title="{{ car.title }}"><img class="example-image" src="/{{ photos.3 }}" alt="" /></a>
+               <a class="example-image-link" href="/{{ photos.4 }}" data-lightbox="example-set" data-title="{{ car.title }}"><img class="example-image" src="/{{ photos.4 }}" alt="" /></a>
+           </div>
+
+        </div>
+      </div>
+    </div>
+   <!-- 
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    -->
+	   {% if not user_accepted %}
+	   <div class="alert alert-warning text-center" role="alert" style="max-width:450px;margin:20px auto 0 auto;">Żeby składać oferty i kupować - zarejestruj się i aktywuj konto.<br>
+        
+            {% if not user.is_authenticated %}
+                <a href="/zaloguj/?next=/konto/" style="color:#ac0303">Zaloguj się!</a></div>
+                {% else %}
+                <a href="/kontakt/" style="color:#ac0303">Skontaktuj się z nami!</a></div>
+                {% endif %}
+        {% endif %}
+
+    {% if car.provider_name == "axa" %}
+        {% include "providers_auction/auction_axa.html" %}
+    {% elif car.provider_name == "rest" %}
+        {% include "providers_auction/auction_rest.html" %}
+    {% elif car.provider_name == "allianz" %}
+        {% include "providers_auction/auction_allianz.html" %}
+    {% elif car.provider_name == "scc" %}
+        {% include "providers_auction/auction_scc.html" %}
+    {% else %}
+        {% include "providers_auction/auction_custom.html" %}
+    {% endif %}
+
+    <div style"clear:both"></div>
+    <div class="container" style="max-width:900px;margin:10px auto 0 auto;">
+        <div style="float:right;margin-right:65px">
+            <h5 style="float:left;margin-right:25px;"><a href="#" class="click_translate"><i>{% trans2 lang 'auction-17' %}</i></a></h5> 
+            <div style="clear:both"></div>
+            <div id="google_translate_element"></div>
+        </div>
+    </div>
+
+<!--
+   <div class="auction-details-contact notranslate">
+    <h3 style="margin-bottom:40px;margin-top:50px;">
+                Kontakt
+                <hr/>
+        </h3>
+        <div class="auction-contact-container">
+    <b>Jesteśmy do Państwa dyspozycji:</b>
+            <ul>
+              <li>od <b>poniedziałku</b> do <b>piątku</b></li>
+
+              <li>w godzinach: <b>10:00 - 18:00</b></li>
+
+              <li>Paweł <b>508 531 351</b></li>
+            </ul>
+        </div>
+  </div>
+-->
+</div>
+</div>
+
+    <div class="modal fade notranslate" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{% trans2 lang 'auction-18' %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form style="font-family:'Open Sans', sans-serif;max-width:400px;margin:20px auto 0 auto" id="raise_offer_form">
+                        <input type="hidden" value="{{ csrf_token }}" name="csrfmiddlewaretoken" />
+                        <input type="hidden" value="{{ car.id }}" name="auction_id" />
+                        {% if prev_offer %}
+                        {% trans2 lang 'auction-19' %}: <b>{{ prev_offer }}</b> CHF<br/><br/>
+                        {% endif %}
+                            <label for="offer">{% trans2 lang 'auction-20' %}:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">$</div>
+                            <input type="number" class="form-control" id="offer" name="offer" placeholder="{% trans2 lang 'auction-27' %}">
+                            <div class="input-group-addon">.00 CHF</div>
+                        </div>
+                        <a href="/zasady" target="blank" style="color:#b10303;margin:60px 0 0 0;" class="pull-left">{% trans2 lang 'ads-3' %}</a>
+                        <button type="submit" class="btn btn-default pull-right" style="background-color:#b10303;font-weight:bold;border:1px solid #b10303;color:#fff;margin:50px 0 0 0;">{% trans2 lang 'auction-18' %} <span class="glyphicon glyphicon-usd"></span></button>
+                        <div style="clear:both"></div>
+                        <p class="alert alert-success" style="display:none" role="alert">
+                            <b>{% trans2 lang 'auction-22' %}</b><br/>
+                            {% trans2 lang 'auction-23' %}
+                        </p>
+                        <p class="alert alert-danger" style="display:none" role="alert">
+                            <b>{% trans2 lang 'auction-24' %}</b><br/>
+                            {% trans2 lang 'auction-25' %}
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade notranslate" id="infoRegisterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                        <p class="alert alert-success" style="display:block !important" role="alert">
+                            <b>{% trans2 lang 'auction-26' %}</b><br/>
+                            <a href="/zasady" style="color:#ac0303">{% trans2 lang 'login-6' %}</a>
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <link rel="stylesheet" href="{% static "website/css/lightbox.min.css" %}" />
+    <link href="/static/website/css/toast.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{% static "website/js/settings.js" %}"></script>
+    <script src="{% static "website/js/lightbox-plus-jquery.min.js" %}"></script>
+    <script src="{% static "website/js/moment.min.js" %}"></script>
+    <script src="{% static "website/js/moment-timezone-with-data.min.js" %}"></script>
+    <!--    <script src="{% static "website/js/lightbox-plus-jquery2.min.js" %}"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="/static/website/js/toast.js"></script>
+    <script type="text/javascript">
+        lightbox.option({
+            'resizeDuration': 0,
+            'fadeDuration': 0,
+            'imageFadeDuration': 0,
+            'wrapAround': false,
+        });
+    </script>
+    <script type="text/javascript">
+         $('[data-toggle="custom-tooltip"]').on('click', function(e){
+           $.toast({
+               heading: 'Uwaga',
+               text: $(this).attr('title'),
+               showHideTransition: 'slide',
+               hideAfter : 5000,
+               icon: 'info',
+               position: 'top-right'
+              });
+        });
+
+        $(document).on('click', '.auction-action-add-to-observed', function(e){
+        var url = '/api/v1/obserwuj/';
+        var data = {
+            'auction_id': $(this).attr('data-auction-id'),
+            'csrfmiddlewaretoken': $('.auction-details-head-info-container').attr('data-token'),
+        };
+
+        var parent_item = $(this).closest('.auction-entry-actions');
+        var this_item = $(this);
+
+        $.post(url, data).done(function(data){
+            this_item.fadeOut(200, function(){
+                $('.auction-action-remove-from-observed').fadeIn(300);
+            });
+        });
+        });
+
+        $(document).on('click', '.auction-action-remove-from-observed', function(e){
+        var url = '/api/v1/nieobserwuj/';
+        var data = {
+            'auction_id': $(this).attr('data-auction-id'),
+            'csrfmiddlewaretoken': $('.auction-details-head-info-container').attr('data-token'),
+        };
+
+        var parent_item = $(this).closest('.auction-entry-actions');
+        var this_item = $(this);
+
+        $.post(url, data).done(function(data){
+            this_item.fadeOut(200, function(){
+                $('.auction-action-add-to-observed').fadeIn(300);
+            });
+        });
+        });
+
+        $(document).on('click', '.auction-action-make-offer a', function(){
+            $('#myModal .modal-body .alert-success').hide();
+            $('#myModal .modal-body .alert-danger').hide();
+        });
+
+        $('#raise_offer_form').submit(function(e){
+            e.preventDefault();
+
+            var url = '/api/v1/licytuj/'
+            var data = $(this).serialize();
+
+            if ($('#offer').val().length == 0)
+                return;
+
+            $.post(url, data).done(function(data){
+                $('.modal-body .alert-success').fadeIn();
+                setTimeout(function(){
+		    window.location = window.location + '?ev=bet';
+                }, 5000);
+            }).fail(function(){
+                $('.modal-body .alert-danger').fadeIn();
+            });
+
+	    //ga('send', 'event', 'Licytacje', 'Licytuj', $('table.table-bordered.table-striped').first().find("td").eq(1).text().trim(), parseInt($(this).serializeArray()[2]['value']));
+        });
+
+        $(document).on('hidden.bs.modal','#myModal', function () {
+            location.reload();
+        });
+
+$(document).ready(function(){
+    /*
+        $(function () {
+              $('[data-toggle="tooltip"]').tooltip()
+        });
+        */
+
+	function customInterval(duration, fn){
+	  this.baseline = undefined
+	  
+	  this.run = function(){
+	    if(this.baseline === undefined){
+	      this.baseline = new Date().getTime()
+	    }
+	    fn()
+	    var end = new Date().getTime()
+	    this.baseline += duration
+	 
+	    var nextTick = duration - (end - this.baseline)
+	    if(nextTick<0){
+	      nextTick = 0
+	    }
+	    (function(i){
+		i.timer = setTimeout(function(){
+		i.run(end)
+	      }, nextTick)
+	    }(this))
+	  }
+
+	this.stop = function(){
+	   clearTimeout(this.timer)
+	 }
+	}
+
+        var customTimer = new customInterval(1000, function(){
+            var date = $('.auction-details-head-end-info').find('b').eq(0).text();
+            if (date == 'ZAKOŃCZONO') {
+                 return;
+            }
+            new_date = date.substring(0, 2);
+            new_date = date.substring(3, 5) + '-' + new_date;
+            new_date = date.substring(6, 10) + '-' + new_date;
+            new_date += 'T';
+            new_date += date.substr(11);
+
+            var MOBILE_SAFARI = ((navigator.userAgent.toString().toLowerCase().indexOf("iphone")!=-1) || (navigator.userAgent.toString().toLowerCase().indexOf("ipod")!=-1) || (navigator.userAgent.toString().toLowerCase().indexOf("ipad")!=-1)) ? true : false;
+	    var SAFARI = (navigator.userAgent.toString().toLowerCase().indexOf("safari") != -1) && (navigator.userAgent.toString().toLowerCase().indexOf("chrome") == -1);
+
+	    new_date += 'Z';
+
+            var parsed_date = new Date(new_date);
+            var seconds = parsed_date.getTime() / 1000;
+
+	    var currentTime = moment().tz("Europe/Warsaw")._d;
+            var diff = seconds - currentTime.getTime()/1000;
+
+            if (diff <= 0){
+                            $('.auction-details-head-end-info').find('b').eq(1).html('<span style="color:#ac0303";>ZAKO&#323;CZONO</span>');
+                            return;
+                    }
+
+
+            var daysDiff = parseInt(diff / (24*3600));
+            var rest = diff % (24*3600);
+            var hoursDiff = parseInt(rest / 3600);
+            var rest = rest % 3600;
+            var minutesDiff = parseInt(rest / 60);
+            var secondsDiff = parseInt(rest % 60);
+
+                    var text = '';
+                    if (daysDiff > 0)
+                        text = daysDiff + 'dni ' + hoursDiff + 'godz ' + minutesDiff + 'min';
+                    else
+                        text = hoursDiff + 'godz ' + minutesDiff + 'min ' + secondsDiff + 's ';
+
+            $('.auction-details-head-end-info').find('b').eq(1).text(text);
+    });
+   
+    customTimer.run();
+
+});
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'de', includedLanguages: 'pl,en,de', multilanguagePage: true}, 'google_translate_element');
+
+    }
+    function loadGoogleTranslate() {
+        var googleTranslateScript = document.createElement('script');
+        googleTranslateScript.type = 'text/javascript';
+        googleTranslateScript.async = true;
+        googleTranslateScript.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild(googleTranslateScript);
+    }
+
+    $(document).on('click', '.click_translate', function(e){
+        e.preventDefault();
+        loadGoogleTranslate();
+    });
+
+    $(document).ready(function(){
+        var lang = 'pl';
+        var value = "; " + document.cookie;
+        var parts = value.split("lang=");
+        if (parts.length == 2) 
+            lang = parts.pop().split(";").shift();
+
+        $('.language-'+lang).addClass('active-lang');
+        $('.language-pl').on('click', function(){
+            document.cookie = 'lang=pl;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-en').on('click', function(){
+            document.cookie = 'lang=en;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-ru').on('click', function(){
+            document.cookie = 'lang=ru;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-de').on('click', function(){
+            document.cookie = 'lang=de;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+        $('.language-uk').on('click', function(){
+            document.cookie = 'lang=uk;path=/;expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            location.reload();
+        });
+	$('[data-toggle="tooltip"]').tooltip();
+    });
+
+    {% if not user_accepted %}
+    $(document).ready(function(){
+      $(".lb-image").load(function() {
+	  var count = parseInt($('.lb-number').text().split(' ')[1]);
+	  if (count > 999)
+	  {
+		      $(this).css("filter", "blur(20px)");
+           $.toast({
+               heading: 'Wymaga aktywacji konta',
+               text: 'Aby przeglądać zdjęcia, zarejestruj się i aktywuj konto!',
+               showHideTransition: 'slide',
+               hideAfter : 5000,
+               icon: 'info',
+               position: 'top-center',
+	       stack: false
+              });
+	  }
+	  else 
+		      $(this).css("filter", "blur(0)");
+      });
+    });
+    {% endif %}
+    </script>
+<style>
+
+    {% if not user_accepted %}
+    .jq-toast-wrap {
+	z-index: 99999999999 !important;
+    }
+    {% endif %}
+</style>
+{% endblock %}

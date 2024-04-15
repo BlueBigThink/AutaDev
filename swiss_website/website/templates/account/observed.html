@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load trans2 %}
+
+{% block content %}
+{% include 'account/nav.html' %}
+  <div class="container business auctions-container" data-max-page="{{ max_page }}">
+    <div class="content" style="min-height:200px">
+				<h3 class="h3-small" style="margin-bottom:40px;margin-top:60px;">
+					<b>{% trans2 lang 'aa-12' %}</b>
+					<hr/>
+				</h3>
+                <div class="content-inner" style="min-height:200px">
+                    {% for auction in auctions %}
+                    <div class="auction-entry" style="width:100%">
+                        <a href="{{ auction.link }}"><img src="/{{ auction.photos }}" class="auction-entry-image" /></a>
+                          <div class="auction-entry-info">
+                              <h4><a href="{{ auction.link }}">{{ auction.title }}</a></h4>
+                              <p>
+                              <span>{% trans2 lang 'aa-2' %}:</span> <b>{{ auction.production_date }}</b><br/>
+                              <span>{% trans2 lang 'aa-3' %}:</span> <b>{{ auction.run }} km</b><br/>
+                              </p>
+                          </div>
+                          <div class="auction-entry-buy-info">
+                              <p class="auction-end-info">
+                              <span>{% trans2 lang 'aa-4' %}:</span> <b>{{ auction.finish_date }}</b><br/>
+                                <span>{% trans2 lang 'aa-5' %}: <b class="auction-finish-date">0d 4g 19m 10s</b></br>
+                              </p>
+                              <p class="auction-bet-info auction-user-bet-info">
+                               {% if auction.bet_price %}
+                                <span class="auction-your-offfer">{% trans2 lang 'aa-6' %}:</span> <b class="auction-your-offfer">{{ auction.bet_price }} CHF</b>
+                               {% endif %}
+                              </p>
+                          </div>
+                          <div class="auction-entry-actions">
+                            <span class="auction-action-make-offer" style="margin-left:90px;float:right">
+                                <a href="{{ auction.link }}">{% trans2 lang 'aa-7' %}</a>
+                                 <span>
+                                 </span>
+                            </span>
+                          </div>
+                          <div class="auction-entry-clock-icon">
+
+                          </div>
+                        </div>
+                        <div style="clear:both"></div>
+                    {% endfor %}
+		    {% if not auctions %}
+          {% trans2 lang 'aa-15' %}
+		    {% endif %}
+                </div>
+    </div>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static "website/js/moment.min.js" %}"></script>                                                      <script src="{% static "website/js/moment-timezone-with-data.min.js" %}"></script>
+	<script src="{% static "website/js/auctions.js" %}"></script>
+{% endblock %}

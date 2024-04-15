@@ -1,0 +1,37 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+	
+	<div class="container business">
+		<div class="header-business">
+
+		</div>
+		<div class="content" style="max-width:800px; margin: 20px auto 0 auto; text-align: justify">
+				<h3>
+					O firmie
+					<hr/>
+				</h3>
+				<p>
+Chcesz kupić <span class="text-important">DOBRE AUTO</span>, a nie duży kłopot? Zostań z nami - uczciwie Ci pomożemy i doradzimy.
+<br/><br/>
+Bezpośrednio importujemy auta - nie jesteśmy komisem. Osobiście licytujemy pojazdy ze wszystkich ubezpieczalni w Szwajcarii. 
+Nie "kupuj kota w worku". U nas możesz spokojnie dowiedzieć się wszystkiego, bez pośpiechu, który najczęściej jest złym doradcą. Przy zakupie, jeśli będziesz kierował się "pierwszym wrażeniem", u nas nie okaże się, że to złudna i nieobiektywna ocena! Auta ze Szwajcarii są zdecydowanie w najlepszym stanie wizualnym i technicznym. A my je osobiście na miejscu wybieramy spośród wielu różnych ofert (dotyczy aut z OGŁOSZEŃ, nie tych z AUKCJI). Pamiętaj, że na cenę auta składa się nie tylko cena jego zakupu! Jest wiele ewentualnych, niezaplanowanych kosztów - pułapek. U nas takich "niespodzianek" unikniesz! Uczciwie, rzetelnie, konkretnie.
+<br/><br/><br/>
+Dysponujemy swoim ubezpieczonym transportem, a także rzeszą zaufanych kierowców. Powierzając nam transport zobowiązujemy się do poszanowania Twojej własności i bierzemy za nią pełną odpowiedzialność.
+
+Zapraszamy serdecznie do naszego biura, gdzie precyzyjnie spiszemy i przyjmiemy zamówienie na konkretny model auta. Przed przyjazdem proszę o umówienie się telefonicznie bądź drogą mailową - <span class="text-important">KONTAKT</span>.
+<br/><br/><br/>
+
+<span class="text-important">WAŻNE</span> - firma posiada tylko te wskazane w zakładce ‘’kontakt” numery telefonów, emaile oraz siedziby biura w Polsce (Otwock i Warszawa - nowa druga lokalizacja) i jedną w Szwajcarii.<br/><br/><br/>
+
+<img src="{% static "website/img/good_cars.png" %}" class="img-responsive pull-right" style="padding:5px 0 5px 25px"/>
+Wszelkie inne wiadomości, kontakty, osoby powołujące się na markę AUTAZESZWAJCARII.PL są podszywającymi się osobami, nielegalnie wykorzystującymi mój brend. Coraz wiecej pojawia się stron kopiujących cześć, bądź całość treści, czy formy mojej strony. Nazwy łudząco podobne, ale AUTAZESZWAJCARII.PL to JEDYNA nasza marka i adres email, z którego wysyłamy Państwu dokumenty, kwitujemy wadium do aukcji, zaliczki oraz zadatki, to tylko: <span class="text-important">DOBRE@AUTAZESZWAJCARII.PL</span> - <span class="text-important">proszę o zwrócenie na to uwagi.</span><br/><br/>
+</p>
+
+				<p class="red-paragraph" style="margin-top:0">
+				ZAPRASZAMY SERDECZNIE DO NASZEGO BIURA, gdzie PRECYZYJNIE SPISZEMY I PRZYJMIEMY ZAMÓWIENIE NA KONKRETNY MODEL AUTA - PRZED PRZYJAZDEM PROSZĘ O UMÓWIENIE SIĘ TELEFONICZNE bądź drogą emailową.<br/><br/>
+WSZELKIE PRAWA DO TREŚCI, FORMY GRAFICZNEJ I STYLU STRONY SĄ ZASTRZEŻONE.	
+				</p>
+		</div>
+	</div>
+{% endblock %}

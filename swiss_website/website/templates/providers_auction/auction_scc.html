@@ -1,0 +1,43 @@
+{% load trans2 %}
+
+{% load app_filters %}
+<div class="container business">
+  <div class="auction-details-more-info">
+    <h3 style="margin-bottom:40px;margin-top:50px;">
+            {% trans2 lang 'a-axa-0' %}
+            <hr/>
+    </h3>
+    <table class="table table-bordered table-striped" style="max-width: 700px;margin:0 auto;">
+      <col width="40%" />
+      <col width="60%" />
+      {% for key, value in car.data.items %}
+        {% if key != "table_info" and value %}
+          <tr>
+  	    {% if key == "Typenschein-Nr." %}
+              <td><b>{{ key }}</b></td>
+              <td><b>{{ value|safe }}</b></td>
+	    {% else %}
+              <td>{{ key }}</td>
+                {% if key == "Hubraum" %}
+                      <td>{{ value|scc_hubraum|safe }}</td>
+                {% elif key == "Letzte MFK" %}
+                      <td>{{ value|scc_mfk|safe }}</td>
+                {% elif key == "Leistung" %}
+                      <td>{{ value|scc_leistung|safe }}</td>
+                {% elif key == "Reparaturkosten" %}
+                      <td>{{ value|scc_reparturkosten|safe }}</td>
+                {% elif key == "Katalogpreis" %}
+                      <td>{{ value|scc_katalogpreis|safe }}</td>
+                {% elif key == "Sonderausstattung" %}
+                      <td>{{ value|scc_sonderausstattung|safe }}</td>
+                {% elif key == "Zählerstand" %}
+                      <td>{{ value|scc_zahlerstand|safe }}</td>
+                {% else %}
+                      <td>{{ value|safe }}</td>
+                {% endif %}
+	    {% endif %}
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+  </div>

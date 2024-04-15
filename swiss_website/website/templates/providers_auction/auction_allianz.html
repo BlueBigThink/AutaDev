@@ -1,0 +1,38 @@
+{% load trans2 %}
+
+<div class="container business">
+  <div class="auction-details-more-info">
+    <h3 style="margin-bottom:40px;margin-top:50px;">
+        {% trans2 lang 'a-all-0' %}
+        <hr/>
+    </h3>
+    <table class="table table-bordered table-striped" style="max-width: 700px;margin:0 auto;">
+      <col width="40%" />
+      <col width="60%" />
+      {% for key, value in car.data.items %}
+        {% if key != "table_info" %}
+          <tr>
+              <td>{{ key }}</td>
+              <td>
+		      {% if value.0|length > 1 %}
+			  {{ value|join:", " }}
+		      {%else%}
+			  {{ value }}
+		      {%endif%}
+	      </td>
+          </tr>
+          {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+  <div class="auction-details-text">
+    <h3 style="margin-bottom:40px;margin-top:50px;">
+        {% trans2 lang 'a-all-0' %}
+        <hr/>
+    </h3>
+
+   <!-- <div class="auction-details-more-container-inner axa-auctions">
+     
+    </div>-->
+
+  </div>

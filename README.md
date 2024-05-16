@@ -14,6 +14,8 @@ This project consists of two sections:
 
 ## Website
 
-- Frontend Page
-- Admin Page
-- Rest API
+- Frontend Page : Django MVT
+- Admin Page : Django Admin
+- Rest API : Django Rest Framework
+
+  
